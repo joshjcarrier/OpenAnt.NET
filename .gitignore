@@ -1,0 +1,22 @@
+
+#-- Files
+*.bak.*
+*.bak
+*.orig
+*.cachefile
+thumbs.db
+*~
+
+#-- Directories
+App_Data/*
+Bin/
+bin/
+obj/
+_ReSharper.*/
+TestResults/
+tmp/
+
+#-- Microsoft Visual Studio specific
+*.user
+*.suo
+StyleCop.Cache
