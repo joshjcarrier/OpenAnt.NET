@@ -12,11 +12,9 @@
 
         private Texture2D[] animation;
 
-        public AnimationRenderEntity(GameEntityBase entity, ContentProvider contentProvider) : base(entity)
+        public AnimationRenderEntity(GameEntityBase entity, Texture2D[] textureFrames) : base(entity)
         {
-            animation = new Texture2D[2];
-            animation[0] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk1);
-            animation[1] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk2);
+            this.animation = textureFrames;
         }
 
         public override void Render(SpriteBatch spriteBatch, Point viewportPosition)

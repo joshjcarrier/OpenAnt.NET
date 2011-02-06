@@ -35,8 +35,18 @@
             this.currentEngine.Draw(spriteBatch);
         }
 
+        private int minorTick = 0;
+
         public void Update(KeyboardState keyboardState)
         {
+            if (this.minorTick == 0)
+            {
+                this.currentEngine.Update();
+            }
+            
+            this.minorTick += 1;
+            this.minorTick %= 30;
+
             // TODO mouse instead, combo keys? this is also really a function of the engine, right
             var inputActionIgnored = this.ProcessKeyboardInput(keyboardState, Keys.D, () => this.currentEngine.MovePlayer(1, 0));
             inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.A, () => this.currentEngine.MovePlayer(-1, 0));

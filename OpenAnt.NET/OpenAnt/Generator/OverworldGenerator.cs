@@ -1,13 +1,11 @@
-﻿using OpenAnt.Engine;
-
-namespace OpenAnt.Generator
+﻿namespace OpenAnt.Generator
 {
     using System;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
     using Entity;
     using Entity.Sprite;
-    using Entity.Terrain;
+    using Engine;
 
     public class OverworldGenerator
     {
@@ -37,9 +35,16 @@ namespace OpenAnt.Generator
                 SpriteData.Add(TerrainGenerator.MakeObstacle(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height))));
             }
 
+            var CpuSpriteData = new List<GameEntityBase>();
+            for (var x = 0; x < 10; x++)
+            {
+                var entity = AntEntity.Create(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height)));
+                CpuSpriteData.Add(entity);
+            }
+
             SpriteData.Add(Player);
 
-            return new WorldData(SurfaceData, SpriteData, Player, boundary);
+            return new WorldData(SurfaceData, SpriteData, CpuSpriteData, Player, boundary);
         }
     }
 }

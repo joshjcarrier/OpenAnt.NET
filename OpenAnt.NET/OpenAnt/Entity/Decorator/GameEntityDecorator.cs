@@ -24,6 +24,15 @@
             this.entity = entity;
         }
 
+        /// <summary>
+        /// Gets or sets Position.
+        /// </summary>
+        public override Rectangle Position
+        {
+            get { return this.entity.Position; }
+            internal set { this.entity.Position = value; }
+        }
+
         #region Rendering Decoration
 
         public override void Render(SpriteBatch spriteBatch, Point viewportPosition)
@@ -50,6 +59,13 @@
             this.entity.Move(newPosition);
         }
 
+        #endregion
+
+        #region Intelligence Decorations
+        public override Point UpdateAwareness()
+        {
+            return this.entity.UpdateAwareness();
+        }
         #endregion
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Engine
+﻿using System.Collections.Generic;
+
+namespace OpenAnt.Engine
 {
     using System.Linq;
     using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +14,7 @@
     {
         private EagleEyeWorldCanvas canvas;
         protected WorldData worldData;
-        
+
         protected GameEngine(EagleEyeWorldCanvas canvas, WorldData worldData)
         {
             this.canvas = canvas;
@@ -24,6 +26,7 @@
             this.canvas.DrawUnderlay(spriteBatch);
             this.canvas.DrawSprites(spriteBatch, this.worldData.SurfaceData);
             this.canvas.DrawSprites(spriteBatch, this.worldData.SpriteData);
+            this.canvas.DrawSprites(spriteBatch, this.worldData.CpuSpriteData);
             this.canvas.DrawOverlay(spriteBatch);
         }
 
@@ -33,6 +36,15 @@
 
             // centralize viewport on player
             this.canvas.CentralizeViewport((int)this.worldData.Player.Position.X, (int)this.worldData.Player.Position.Y);
+        }
+
+        public void Update()
+        {
+            this.worldData.CpuSpriteData.ForEach(o =>
+            {
+                var point = o.UpdateAwareness();
+                MoveSprite(o, point.X, point.Y);
+            });
         }
 
         private void MoveSprite(GameEntityBase sprite, int deltaX, int deltaY)
@@ -50,7 +62,7 @@
 
             // TODO uncrashable collision detection and decision
             bool doMove = true;
-            var collisionTile = this.worldData.SpriteData.SingleOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault = bad
+            var collisionTile = this.worldData.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
             if (collisionTile != null)
             {
                 doMove = collisionTile.CollideOn(sprite);

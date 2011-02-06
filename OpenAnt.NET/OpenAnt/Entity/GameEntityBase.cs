@@ -11,6 +11,8 @@
     /// </summary>
     public class GameEntityBase
     {
+        private Rectangle position;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GameEntityBase"/> class.
         /// </summary>
@@ -19,13 +21,17 @@
         /// </param>
         public GameEntityBase(Rectangle position)
         {
-            this.Position = position;
+            this.position = position;
         }
 
         /// <summary>
-        /// Gets or sets Position, as registered by the collision policy.
+        /// Gets the Position.
         /// </summary>
-        public Rectangle Position { get; protected set; }
+        public virtual Rectangle Position
+        {
+            get { return this.position; }
+            internal set { this.position = value; }
+        }
 
         #region Rendering Decorations
 
@@ -48,11 +54,22 @@
             throw new InvalidOperationException("Decorator not defined.");
         }
 
-        public virtual void Move(Point newPosition)
+        #endregion
+
+        #region Intelligence Decorations
+
+        public virtual Point UpdateAwareness()
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
 
+        #endregion
+
+        #region Interaction Decorations
+        public virtual void Move(Point newPosition)
+        {
+            throw new InvalidOperationException("Decorator not defined.");
+        }
         #endregion
     }
 }

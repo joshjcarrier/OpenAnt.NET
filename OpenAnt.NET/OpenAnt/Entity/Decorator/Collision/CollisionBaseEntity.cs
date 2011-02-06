@@ -21,12 +21,5 @@
         {
             return this.Position.Contains(hitTestLocation);
         }
-
-        public override void Move(Point newPosition)
-        {
-            var oldPosition = this.Position;
-            oldPosition.Location = newPosition;
-            this.Position = oldPosition;
-        }
     }
 }

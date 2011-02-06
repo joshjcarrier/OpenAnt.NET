@@ -2,14 +2,12 @@
 {
     using Microsoft.Xna.Framework;
     using Decorator.Collision;
-    using Decorator.Render;
     using Decorator.Interaction;
+    using Decorator.Render;
     using Microsoft.Xna.Framework.Graphics;
+    using Intelligence;
 
-    /// <summary>
-    /// Yellow ant entity.
-    /// </summary>
-    public class YellowAntEntity
+    public static class AntEntity
     {
         public static GameEntityBase Create(ContentProvider contentProvider, Point position)
         {
@@ -20,7 +18,8 @@
             var baseEntity = new GameEntityBase(new Rectangle(position.X, position.Y, 1, 1));
             baseEntity = new AnimationRenderEntity(baseEntity, animation);
             baseEntity = new CollisionBarrierEntity(baseEntity);
-            return new MovingEntity(baseEntity);
+            baseEntity = new MovingEntity(baseEntity);
+            return new WorkerAntIntelligence(baseEntity);
         }
     }
 }
