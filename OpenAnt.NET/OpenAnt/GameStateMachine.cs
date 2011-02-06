@@ -52,6 +52,7 @@
             inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.A, () => this.currentEngine.MovePlayer(-1, 0));
             inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.W, () => this.currentEngine.MovePlayer(0, -1));
             inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.S, () => this.currentEngine.MovePlayer(0, 1));
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Space, () => this.currentEngine.Interact());
             
             if(inputActionIgnored)
             {

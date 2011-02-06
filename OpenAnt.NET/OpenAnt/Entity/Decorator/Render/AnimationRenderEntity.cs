@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Entity.Decorator.Render
+﻿using OpenAnt.Helper;
+
+namespace OpenAnt.Entity.Decorator.Render
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -41,6 +43,17 @@
 
             animationFrame += 1;
             animationFrame %= 30;
+
+            // TODO extract this to a base class
+            if (this.HoldingEntity != null)
+            {
+                var heldEntityPosition = viewportPosition;
+                var delta = OrientationHelper.GetAdjacentPointDelta(FacingDirection);
+                heldEntityPosition.X += delta.X;
+                heldEntityPosition.Y += delta.Y;
+
+                this.HoldingEntity.Render(spriteBatch, heldEntityPosition);
+            }
         }
     }
 }

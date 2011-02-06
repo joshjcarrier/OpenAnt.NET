@@ -1,6 +1,5 @@
-﻿namespace OpenAnt.Entity.Intelligence
+﻿namespace OpenAnt.Entity.Decorator.Intelligence
 {
-    using Decorator;
     using System;
     using Microsoft.Xna.Framework;
 

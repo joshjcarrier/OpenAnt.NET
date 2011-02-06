@@ -14,6 +14,7 @@
             this.SurfaceData = surfaceData;
             this.SpriteData = spriteData;
             this.CpuSpriteData = cpuSpriteData;
+            this.CpuSpriteData.ForEach(o => this.SpriteData.Add(o));
             this.Player = player;
             this.Boundary = boundary;
         }

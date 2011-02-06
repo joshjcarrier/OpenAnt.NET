@@ -20,7 +20,8 @@
             var baseEntity = new GameEntityBase(new Rectangle(position.X, position.Y, 1, 1));
             baseEntity = new AnimationRenderEntity(baseEntity, animation);
             baseEntity = new CollisionBarrierEntity(baseEntity);
-            return new MovingEntity(baseEntity);
+            baseEntity = new PrecisionMovingEntity(baseEntity);
+            return new InteractionEffectEntity(baseEntity);
         }
     }
 }

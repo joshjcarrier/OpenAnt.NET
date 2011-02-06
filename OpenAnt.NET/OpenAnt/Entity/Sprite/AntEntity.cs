@@ -5,7 +5,7 @@
     using Decorator.Interaction;
     using Decorator.Render;
     using Microsoft.Xna.Framework.Graphics;
-    using Intelligence;
+    using Decorator.Intelligence;
 
     public static class AntEntity
     {

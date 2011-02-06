@@ -118,11 +118,13 @@
     <Compile Include="Entity\Decorator\Collision\CollisionBaseEntity.cs" />
     <Compile Include="Entity\Decorator\Collision\TransparentCollisionEntity.cs" />
     <Compile Include="Entity\Decorator\GameEntityDecorator.cs" />
+    <Compile Include="Entity\Decorator\Interaction\InteractionEffectEntity.cs" />
     <Compile Include="Entity\Decorator\Interaction\MovingEntity.cs" />
+    <Compile Include="Entity\Decorator\Interaction\PrecisionMovingEntity.cs" />
     <Compile Include="Entity\Decorator\Render\AnimationRenderEntity.cs" />
     <Compile Include="Entity\Decorator\Render\StaticRenderEntity.cs" />
     <Compile Include="Entity\GameEntityBase.cs" />
-    <Compile Include="Entity\Intelligence\WorkerAntIntelligence.cs" />
+    <Compile Include="Entity\Decorator\Intelligence\WorkerAntIntelligence.cs" />
     <Compile Include="Entity\Sprite\AntEntity.cs" />
     <Compile Include="Entity\Terrain\TerrainEntity.cs" />
     <Compile Include="Entity\Sprite\YellowAntEntity.cs" />
@@ -131,6 +133,8 @@
     <Compile Include="GameStateMachine.cs" />
     <Compile Include="Generator\OverworldGenerator.cs" />
     <Compile Include="HardCodes.cs" />
+    <Compile Include="Helper\OrientationHelper.cs" />
+    <Compile Include="Orientation.cs" />
     <Compile Include="WorldData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

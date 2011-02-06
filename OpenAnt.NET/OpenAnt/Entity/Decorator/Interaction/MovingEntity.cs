@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Entity.Decorator.Interaction
+﻿using OpenAnt.Helper;
+
+namespace OpenAnt.Entity.Decorator.Interaction
 {
     using Microsoft.Xna.Framework;
 
@@ -13,9 +15,13 @@
 
         public override void Move(Point newPosition)
         {
-            var oldPosition = Position;
-            oldPosition.Location = newPosition;
-            Position = oldPosition;
+            var oldPosition = Position.Location;
+            var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, newPosition);
+
+            var rect = Position;
+            rect.Location = newPosition;
+            Position = rect;
+            FacingDirection = newOrientation;
         }
     }
 }

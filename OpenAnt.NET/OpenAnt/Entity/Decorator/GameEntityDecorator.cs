@@ -24,6 +24,12 @@
             this.entity = entity;
         }
 
+        public override Orientation FacingDirection
+        {
+            get { return this.entity.FacingDirection; }
+            set { this.entity.FacingDirection = value; }
+        }
+
         /// <summary>
         /// Gets or sets Position.
         /// </summary>
@@ -31,6 +37,12 @@
         {
             get { return this.entity.Position; }
             internal set { this.entity.Position = value; }
+        }
+
+        public override GameEntityBase HoldingEntity
+        {
+            get { return this.entity.HoldingEntity; }
+            set { this.entity.HoldingEntity = value; }
         }
 
         #region Rendering Decoration
@@ -54,9 +66,18 @@
             return this.entity.IsHitTestCollision(hitTestLocation);
         }
 
+        #endregion
+
+        #region Interaction Decoration
+
         public override void Move(Point newPosition)
         {
             this.entity.Move(newPosition);
+        }
+
+        public override void InteractWith(GameEntityBase interactingEntity)
+        {
+            this.entity.InteractWith(interactingEntity);
         }
 
         #endregion

@@ -24,6 +24,8 @@
             this.position = position;
         }
 
+        public virtual Orientation FacingDirection { get; set; }
+
         /// <summary>
         /// Gets the Position.
         /// </summary>
@@ -32,6 +34,8 @@
             get { return this.position; }
             internal set { this.position = value; }
         }
+
+        public virtual GameEntityBase HoldingEntity { get; set; }
 
         #region Rendering Decorations
 
@@ -67,6 +71,11 @@
 
         #region Interaction Decorations
         public virtual void Move(Point newPosition)
+        {
+            throw new InvalidOperationException("Decorator not defined.");
+        }
+
+        public virtual void InteractWith(GameEntityBase interactingEntity)
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
