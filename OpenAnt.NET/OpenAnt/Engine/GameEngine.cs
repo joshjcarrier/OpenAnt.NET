@@ -35,7 +35,7 @@
             this.canvas.CentralizeViewport((int)this.worldData.Player.Position.X, (int)this.worldData.Player.Position.Y);
         }
 
-        private void MoveSprite(GameEntity sprite, int deltaX, int deltaY)
+        private void MoveSprite(GameEntityBase sprite, int deltaX, int deltaY)
         {
             // estimated position
             var newPosition = sprite.Position.Location;

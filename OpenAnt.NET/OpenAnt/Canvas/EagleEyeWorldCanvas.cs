@@ -52,7 +52,7 @@ namespace OpenAnt.Canvas
         /// <param name="spriteData">
         /// The sprite data.
         /// </param>
-        public void DrawSprites(SpriteBatch spriteBatch, IEnumerable<GameEntity> spriteData)
+        public void DrawSprites(SpriteBatch spriteBatch, IEnumerable<GameEntityBase> spriteData)
         {
             // TODO viewport restriction optimization
             foreach (var sprite in spriteData)

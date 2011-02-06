@@ -10,7 +10,7 @@ namespace OpenAnt
     /// </summary>
     public class WorldData
     {
-        public WorldData(IList<GameEntity> surfaceData, IList<GameEntity> spriteData, GameEntity player, Rectangle boundary)
+        public WorldData(IList<GameEntityBase> surfaceData, IList<GameEntityBase> spriteData, GameEntityBase player, Rectangle boundary)
         {
             this.SurfaceData = surfaceData;
             this.SpriteData = spriteData;
@@ -21,14 +21,14 @@ namespace OpenAnt
         /// <summary>
         /// Surface data.
         /// </summary>
-        public IList<GameEntity> SurfaceData;
+        public IList<GameEntityBase> SurfaceData;
 
         /// <summary>
         /// Collidable objects data.
         /// </summary>
-        public IList<GameEntity> SpriteData;
+        public IList<GameEntityBase> SpriteData;
 
-        public GameEntity Player;
+        public GameEntityBase Player;
 
         public Rectangle Boundary { get; private set; }
     }

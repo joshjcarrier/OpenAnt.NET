@@ -15,7 +15,7 @@ namespace OpenAnt.Generator
         {
             var boundary = new Rectangle(0, 0, 40, 30);
 
-            var SurfaceData = new List<GameEntity>();
+            var SurfaceData = new List<GameEntityBase>();
 
             // depth
             // NOTE underworld generator doesn't generate top 2 rows
@@ -30,7 +30,7 @@ namespace OpenAnt.Generator
 
             var Player = YellowAntEntity.Create(contentProvider, new Point(5, 1));
 
-            var SpriteData = new List<GameEntity>();
+            var SpriteData = new List<GameEntityBase>();
             var r = new Random();
             for (var x = 0; x < 20; x++)
             {

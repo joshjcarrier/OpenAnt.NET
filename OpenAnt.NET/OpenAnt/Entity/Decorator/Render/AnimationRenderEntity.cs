@@ -1,29 +1,29 @@
-﻿namespace OpenAnt.Entity.Policy.Render
+﻿namespace OpenAnt.Entity.Decorator.Render
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    public class AnimatedRenderPolicy : IRenderPolicy
+    /// <summary>
+    /// Entity which has an animation.
+    /// </summary>
+    public class AnimationRenderEntity : GameEntityDecorator
     {
         private int animationFrame;
 
         private Texture2D[] animation;
 
-        public AnimatedRenderPolicy(ContentProvider contentProvider, Point entitySize)
+        public AnimationRenderEntity(GameEntityBase entity, ContentProvider contentProvider) : base(entity)
         {
             animation = new Texture2D[2];
             animation[0] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk1);
             animation[1] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk2);
-            this.EntitySize = entitySize;
         }
 
-        public Point EntitySize { get; private set; }
-
-        public void Render(SpriteBatch spriteBatch, Point viewportPosition)
+        public override void Render(SpriteBatch spriteBatch, Point viewportPosition)
         {
             Texture2D texture;
 
-            if(animationFrame<15)
+            if (animationFrame < 15)
             {
                 texture = animation[0];
             }
@@ -37,8 +37,8 @@
                 new Rectangle(
                         ((int)viewportPosition.X) * HardCodes.TileSize,
                         ((int)viewportPosition.Y) * HardCodes.TileSize,
-                        this.EntitySize.X * HardCodes.TileSize,
-                        this.EntitySize.Y * HardCodes.TileSize),
+                        this.Position.Width * HardCodes.TileSize,
+                        this.Position.Height * HardCodes.TileSize),
                 Color.White);
 
             animationFrame += 1;

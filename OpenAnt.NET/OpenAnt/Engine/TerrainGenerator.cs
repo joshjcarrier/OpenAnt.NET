@@ -1,16 +1,16 @@
 ﻿namespace OpenAnt.Engine
 {
-    using Entity;
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Entity;
     using Entity.Terrain;
 
     public class TerrainGenerator
     {
         static Random r = new Random();
 
-        public static GameEntity MakeSurface(ContentProvider contentProvider, Point position)
+        public static GameEntityBase MakeSurface(ContentProvider contentProvider, Point position)
         {
             var thing = r.Next(0, 100);
             Texture2D texture;
@@ -43,10 +43,10 @@
                 texture = contentProvider.GetTerrainTexture(TerrainResource.Foliage3);
             }
 
-            return TerrainEntity.Create(texture, position);
+            return TerrainEntity.CreateSurface(texture, position);
         }
 
-        public static GameEntity MakeObstacle(ContentProvider contentProvider, Point position)
+        public static GameEntityBase MakeObstacle(ContentProvider contentProvider, Point position)
         {
             var thing = r.Next(0, 100);
             Texture2D texture;
@@ -69,7 +69,7 @@
                 texture = contentProvider.GetTerrainTexture(TerrainResource.Rock3);
             }
 
-            return TerrainObstacleEntity.Create(texture, position, size);
+            return TerrainEntity.CreateObstacle(texture, position, size);
         }
     }
 }
