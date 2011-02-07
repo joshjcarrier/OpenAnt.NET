@@ -31,6 +31,13 @@ namespace OpenAnt
 
             this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.YellowAntWalk1);
             this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.YellowAntWalk2);
+
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Seed1);
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Seed2);
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Food1);
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Food2);
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Food3);
+            this.LoadTexture(contentManager, HardCodes.SpriteContent, SpriteResource.Food4);
         }
 
         public Texture2D GetSpriteTexture(string spriteTextureId)
