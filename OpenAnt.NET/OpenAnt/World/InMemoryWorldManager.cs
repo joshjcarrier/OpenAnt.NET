@@ -32,7 +32,7 @@
             }
         }
 
-        private void MoveEntity(InteractableGameEntityBase entity, Point targetLocation, bool isPrecisionMove)
+        private void MoveEntity(GameEntityBase entity, Point targetLocation, bool isPrecisionMove)
         {
             var oldPosition = entity.Position.Location;
             var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, targetLocation);

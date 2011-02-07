@@ -1,8 +1,7 @@
-﻿using OpenAnt.Helper;
-
-namespace OpenAnt.Entity.Decorator.Interaction
+﻿namespace OpenAnt.Entity.Decorator.Interaction
 {
     using Microsoft.Xna.Framework;
+    using World;
 
     /// <summary>
     /// An entity capable of having it's position changed in the world.

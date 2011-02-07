@@ -145,6 +145,7 @@
     <Compile Include="Screen\MainMenuScreen.cs" />
     <Compile Include="SpriteResource.cs" />
     <Compile Include="TerrainResource.cs" />
+    <Compile Include="World\ActionType.cs" />
     <Compile Include="World\INotifyWorldChangeRequested.cs" />
     <Compile Include="World\InMemoryWorldManager.cs" />
     <Compile Include="World\IWorldManager.cs" />
