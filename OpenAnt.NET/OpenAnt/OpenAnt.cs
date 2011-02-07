@@ -110,12 +110,9 @@ namespace OpenAnt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            this.spriteBatch.Begin();
-
             // TODO: smartly switch between screens
-            this.mainMenuScreen.Draw(this.spriteBatch);
+            //this.mainMenuScreen.Draw(this.spriteBatch);
             this.gameCanvasScreen.Draw(this.spriteBatch);
-            this.spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -30,7 +30,8 @@
         /// </param>
         public override void DrawOverlay(SpriteBatch spriteBatch)
         {
-            // TODO
+            // TODO drawing something meaningful
+            spriteBatch.Draw(contentProvider.GetSpriteTexture(SpriteResource.Seed1), new Rectangle(0,0,50,50), Color.White);
         }
 
         /// <summary>

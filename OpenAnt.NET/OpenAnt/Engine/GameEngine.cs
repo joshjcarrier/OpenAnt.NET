@@ -22,11 +22,19 @@
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //ViewportHelper.CurrentDevice.Viewport = ViewportHelper.DefaultViewport;
             this.canvas.DrawUnderlay(spriteBatch);
+            spriteBatch.Begin();
+            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.SpriteViewport;
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SurfaceData);
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SpriteData);
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.CpuSpriteData);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.MenuViewport;
             this.canvas.DrawOverlay(spriteBatch);
+            spriteBatch.End();
         }
 
         public void MovePlayer(int deltaX, int deltaY)
