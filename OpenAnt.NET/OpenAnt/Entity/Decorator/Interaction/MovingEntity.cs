@@ -7,9 +7,9 @@ namespace OpenAnt.Entity.Decorator.Interaction
     /// <summary>
     /// An entity capable of having it's position changed in the world.
     /// </summary>
-    public class MovingEntity : InteractableGameEntityDecorator
+    public class MovingEntity : GameEntityDecorator
     {
-        public MovingEntity(InteractableGameEntityBase entity) : base(entity)
+        public MovingEntity(GameEntityBase entity) : base(entity)
         {
         }
 

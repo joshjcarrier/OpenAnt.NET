@@ -5,6 +5,6 @@ namespace OpenAnt.World
 
     public interface INotifyWorldChangeRequested
     {
-        void OnNotifyWorldChangeRequested(InteractableGameEntityBase sender, Point targetLocation, object action);
+        void OnNotifyWorldChangeRequested(GameEntityBase sender, Point targetLocation, object action);
     }
 }

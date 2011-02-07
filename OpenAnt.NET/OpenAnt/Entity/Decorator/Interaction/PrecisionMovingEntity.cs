@@ -8,7 +8,7 @@
     /// </summary>
     public class PrecisionMovingEntity : MovingEntity
     {
-        public PrecisionMovingEntity(InteractableGameEntityBase entity) : base(entity)
+        public PrecisionMovingEntity(GameEntityBase entity) : base(entity)
         {
         }
 

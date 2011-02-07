@@ -1,9 +1,8 @@
-﻿using OpenAnt.Entity;
-using OpenAnt.Generator;
-
-namespace OpenAnt.World
+﻿namespace OpenAnt.World
 {
     using Microsoft.Xna.Framework;
+    using Entity;
+    using Generator;
 
     /// <summary>
     /// Handles transactions in the world, in-memory.
@@ -17,7 +16,7 @@ namespace OpenAnt.World
 
         public WorldData World { get; set; }
 
-        public void OnNotifyWorldChangeRequested(InteractableGameEntityBase sender, Point targetLocation, object action)
+        public void OnNotifyWorldChangeRequested(GameEntityBase sender, Point targetLocation, object action)
         {
             return;
         }

@@ -4,6 +4,8 @@
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using World;
+
     #endregion
 
     /// <summary>
@@ -12,6 +14,7 @@
     public class GameEntityBase
     {
         private Rectangle position;
+        private INotifyWorldChangeRequested notifyWorldChangeRequested;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameEntityBase"/> class.
@@ -19,9 +22,10 @@
         /// <param name="position">
         /// The entity spatial position.
         /// </param>
-        public GameEntityBase(Rectangle position)
+        public GameEntityBase(Rectangle position, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
             this.position = position;
+            this.notifyWorldChangeRequested = notifyWorldChangeRequested;
         }
 
         public virtual Orientation FacingDirection { get; set; }
@@ -36,6 +40,19 @@
         }
 
         public virtual GameEntityBase HoldingEntity { get; set; }
+
+        #region World Change Request
+        internal virtual INotifyWorldChangeRequested NotifyWorldChangeRequested
+        {
+            get { return this.notifyWorldChangeRequested; }
+            set { this.notifyWorldChangeRequested = value; }
+        }
+
+        protected void OnNotifyWorldChangeRequested(Point targetLocation, object action)
+        {
+            this.NotifyWorldChangeRequested.OnNotifyWorldChangeRequested(this, targetLocation, action);
+        }
+        #endregion
 
         #region Rendering Decorations
 
