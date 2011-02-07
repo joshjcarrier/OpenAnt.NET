@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Entity.Decorator.Intelligence
+﻿using OpenAnt.World;
+
+namespace OpenAnt.Entity.Decorator.Intelligence
 {
     using System;
     using Microsoft.Xna.Framework;
@@ -17,7 +19,7 @@
         public override Point UpdateAwareness()
         {
             // TODO some real awareness
-            var location = Point.Zero;
+            var location = Position.Location;
 
             var testX = r.Next(100);
             var testY = r.Next(100);
@@ -27,8 +29,10 @@
                 return location;
             }
 
-            location.X = (testX % 3) - 1;
-            location.Y = (testY % 3) - 1;
+            location.X += (testX % 3) - 1;
+            location.Y += (testY % 3) - 1;
+
+            this.OnNotifyWorldChangeRequested(location, ActionType.Move);
 
             return location;
         }

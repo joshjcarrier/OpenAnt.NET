@@ -1,11 +1,10 @@
-﻿using OpenAnt.Entity;
-
-namespace OpenAnt.Canvas
+﻿namespace OpenAnt.Canvas
 {
     #region using directives
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Entity;
 
     #endregion
 
