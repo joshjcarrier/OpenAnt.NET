@@ -126,6 +126,7 @@
     <Compile Include="Entity\GameEntityBase.cs" />
     <Compile Include="Entity\Decorator\Intelligence\WorkerAntIntelligence.cs" />
     <Compile Include="Entity\Sprite\AntEntity.cs" />
+    <Compile Include="Entity\Sprite\FoodEntity.cs" />
     <Compile Include="Entity\Terrain\TerrainEntity.cs" />
     <Compile Include="Entity\Sprite\YellowAntEntity.cs" />
     <Compile Include="Engine\GameEngine.cs" />

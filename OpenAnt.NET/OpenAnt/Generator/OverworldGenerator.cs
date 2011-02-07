@@ -44,6 +44,7 @@
 
             SpriteData.Add(Player);
 
+            SpriteData.Add(FoodEntity.Create(contentProvider, new Point(10,10)));
             return new WorldData(SurfaceData, SpriteData, CpuSpriteData, Player, boundary);
         }
     }
