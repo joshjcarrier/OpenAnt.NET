@@ -16,6 +16,11 @@
         public const int TextureSize = 32;
 
         /// <summary>
+        /// Relative path where Font data stored.
+        /// </summary>
+        public const string FontContent = "Font/";
+
+        /// <summary>
         /// Relative path where Sprite data stored.
         /// </summary>
         public const string SpriteContent = "Sprite/";

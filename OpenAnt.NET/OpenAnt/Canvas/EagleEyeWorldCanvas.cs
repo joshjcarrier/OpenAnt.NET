@@ -53,7 +53,9 @@
         /// </param>
         public void DrawSprites(SpriteBatch spriteBatch, IEnumerable<GameEntityBase> spriteData)
         {
-            // TODO viewport restriction optimization
+            spriteBatch.DrawString(this.contentProvider.GetFont(FontResource.SegoeUiMonoRegular), "TEST",
+                                   new Vector2(10, 10), Color.White); 
+            // TODO viewport restriction optimization);)
             foreach (var sprite in spriteData)
             {
                 var viewportPosition = sprite.Position.Location;

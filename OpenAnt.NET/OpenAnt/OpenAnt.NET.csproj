@@ -132,6 +132,7 @@
     <Compile Include="Entity\Sprite\YellowAntEntity.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="FontResource.cs" />
     <Compile Include="GameStateMachine.cs" />
     <Compile Include="Generator\OverworldGenerator.cs" />
     <Compile Include="HardCodes.cs" />
