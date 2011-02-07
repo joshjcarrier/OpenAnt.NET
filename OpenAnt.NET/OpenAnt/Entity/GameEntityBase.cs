@@ -13,26 +13,63 @@
     /// </summary>
     public class GameEntityBase
     {
+        private Player allegiance;
         private EntityType entityType;
+        private int health;
         private Rectangle position;
         private INotifyWorldChangeRequested notifyWorldChangeRequested;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameEntityBase"/> class.
         /// </summary>
+        /// <param name="type">
+        /// The type of entity being represented.
+        /// </param>
         /// <param name="position">
         /// The entity spatial position.
         /// </param>
-        public GameEntityBase(EntityType type, Rectangle position, INotifyWorldChangeRequested notifyWorldChangeRequested)
+        public GameEntityBase(EntityType type, Rectangle position) : this(type, position, Player.Gaia, null)
         {
-            this.entityType = type;
-            this.position = position;
-            this.notifyWorldChangeRequested = notifyWorldChangeRequested;
         }
 
-        public virtual EntityType EntityType { get { return this.entityType; } }
+        public GameEntityBase(EntityType type, Rectangle position, Player allegiance, INotifyWorldChangeRequested notifyWorldChangeRequested)
+        {
+            this.allegiance = allegiance;
+            this.entityType = type;
+            this.health = 1000;
+            this.notifyWorldChangeRequested = notifyWorldChangeRequested;
+            this.position = position;
+        }
 
+        /// <summary>
+        /// Gets Allegiance.
+        /// </summary>
+        public virtual Player Allegiance
+        {
+            get { return this.allegiance; }
+        }
+
+        /// <summary>
+        /// Gets EntityType.
+        /// </summary>
+        public virtual EntityType EntityType
+        {
+            get { return this.entityType; }
+        }
+
+        /// <summary>
+        /// Gets or sets FacingDirection.
+        /// </summary>
         public virtual Orientation FacingDirection { get; set; }
+
+        /// <summary>
+        /// Gets or sets Health.
+        /// </summary>
+        public virtual int Health
+        {
+            get { return this.health; }
+            set { this.health = value; }
+        }
 
         /// <summary>
         /// Gets the Position.
@@ -43,6 +80,9 @@
             internal set { this.position = value; }
         }
 
+        /// <summary>
+        /// Gets or sets HoldingEntity.
+        /// </summary>
         public virtual GameEntityBase HoldingEntity { get; set; }
 
         #region World Change Request

@@ -21,9 +21,17 @@
         /// The entity being decorated.
         /// </param>
         protected GameEntityDecorator(GameEntityBase entity) 
-            : base(entity.EntityType, entity.Position, entity.NotifyWorldChangeRequested)
+            : base(entity.EntityType, entity.Position, entity.Allegiance, entity.NotifyWorldChangeRequested)
         {
             this.entity = entity;
+        }
+
+        /// <summary>
+        /// Gets Allegiance.
+        /// </summary>
+        public override Player Allegiance
+        {
+            get { return this.entity.Allegiance; }
         }
 
         public override EntityType EntityType
@@ -35,6 +43,12 @@
         {
             get { return this.entity.FacingDirection; }
             set { this.entity.FacingDirection = value; }
+        }
+
+        public override int Health
+        {
+            get { return this.entity.Health; }
+            set { this.entity.Health = value; }
         }
 
         internal override INotifyWorldChangeRequested NotifyWorldChangeRequested

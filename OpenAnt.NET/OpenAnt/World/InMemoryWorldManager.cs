@@ -57,7 +57,6 @@
             {
                 if (sender.HoldingEntity == null)
                 {
-                    //entity.InteractWith(collisionTile);
                     sender.HoldingEntity = collisionTile;
 
                     // NOTE this is really an underworld thing...
@@ -118,6 +117,7 @@
                         var rect = entity.Position;
                         rect.Location = targetLocation;
                         entity.Position = rect;
+                        entity.Health -= 1;
                     }
                 }
                 else
@@ -125,6 +125,7 @@
                     var rect = entity.Position;
                     rect.Location = targetLocation;
                     entity.Position = rect;
+                    entity.Health -= 1;
                 }
             }
         }

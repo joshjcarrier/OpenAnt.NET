@@ -1,5 +1,6 @@
 ﻿namespace OpenAnt.Engine
 {
+    using System.Linq;
     using Microsoft.Xna.Framework.Graphics;
     using Canvas;
     using Helper;
@@ -51,6 +52,11 @@
         public void Update()
         {
             this.WorldManager.World.CpuSpriteData.ForEach(o => o.UpdateAwareness());
+
+            // calculate and update statistics to be displayed on canvas
+            var yellowAntHealth = this.WorldManager.World.Player.Health;
+            var blackColonyHealth = this.WorldManager.World.SpriteData.Where(o => o.Allegiance == Player.Black).Average(o => o.Health);
+            // var redColonyHealth = this.WorldManager.World.SpriteData.Where(o => o.Allegiance == Player.Red).Average(o => o.Health);
         }
     }
 }
