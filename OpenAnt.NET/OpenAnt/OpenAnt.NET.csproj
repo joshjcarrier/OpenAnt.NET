@@ -118,6 +118,7 @@
     <Compile Include="Entity\Decorator\Collision\CollisionBaseEntity.cs" />
     <Compile Include="Entity\Decorator\Collision\TransparentCollisionEntity.cs" />
     <Compile Include="Entity\Decorator\GameEntityDecorator.cs" />
+    <Compile Include="Entity\Decorator\InteractableGameEntityDecorator.cs" />
     <Compile Include="Entity\Decorator\Interaction\InteractionEffectEntity.cs" />
     <Compile Include="Entity\Decorator\Interaction\MovingEntity.cs" />
     <Compile Include="Entity\Decorator\Interaction\PrecisionMovingEntity.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Entity\Decorator\Render\StaticRenderEntity.cs" />
     <Compile Include="Entity\GameEntityBase.cs" />
     <Compile Include="Entity\Decorator\Intelligence\WorkerAntIntelligence.cs" />
+    <Compile Include="Entity\InteractableGameEntityBase.cs" />
     <Compile Include="Entity\Sprite\AntEntity.cs" />
     <Compile Include="Entity\Terrain\TerrainEntity.cs" />
     <Compile Include="Entity\Sprite\YellowAntEntity.cs" />
@@ -143,6 +145,9 @@
     <Compile Include="Screen\MainMenuScreen.cs" />
     <Compile Include="SpriteResource.cs" />
     <Compile Include="TerrainResource.cs" />
+    <Compile Include="World\INotifyWorldChangeRequested.cs" />
+    <Compile Include="World\InMemoryWorldManager.cs" />
+    <Compile Include="World\IWorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

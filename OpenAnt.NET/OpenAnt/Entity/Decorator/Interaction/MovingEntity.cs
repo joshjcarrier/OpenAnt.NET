@@ -7,14 +7,16 @@ namespace OpenAnt.Entity.Decorator.Interaction
     /// <summary>
     /// An entity capable of having it's position changed in the world.
     /// </summary>
-    public class MovingEntity : GameEntityDecorator
+    public class MovingEntity : InteractableGameEntityDecorator
     {
-        public MovingEntity(GameEntityBase entity) : base(entity)
+        public MovingEntity(InteractableGameEntityBase entity) : base(entity)
         {
         }
 
         public override void Move(Point newPosition)
         {
+            // TODO generate events instead of actually manipulating the sprite object
+            // this.OnNotifyWorldChangeRequested(newPosition, null);
             var oldPosition = Position.Location;
             var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, newPosition);
 

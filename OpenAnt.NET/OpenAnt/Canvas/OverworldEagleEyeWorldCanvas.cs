@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace OpenAnt.Canvas
+﻿namespace OpenAnt.Canvas
 {
     #region using directives
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework;
+
     #endregion
 
     /// <summary>

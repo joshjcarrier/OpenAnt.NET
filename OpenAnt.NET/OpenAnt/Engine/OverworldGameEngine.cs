@@ -1,4 +1,5 @@
 ﻿using OpenAnt.Generator;
+using OpenAnt.World;
 
 namespace OpenAnt.Engine
 {
@@ -15,17 +16,13 @@ namespace OpenAnt.Engine
         /// <param name="canvas">
         /// The canvas.
         /// </param>
-        /// <param name="worldData">
-        /// The world data.
-        /// </param>
-        protected OverworldGameEngine(EagleEyeWorldCanvas canvas, WorldData worldData) : base(canvas, worldData)
+        protected OverworldGameEngine(EagleEyeWorldCanvas canvas, IWorldManager worldManager) : base(canvas, worldManager)
         {
         }
 
-        public static GameEngine Create(ContentProvider contentProvider)
+        public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
-            var worldData = OverworldGenerator.Make(contentProvider);
-            return new OverworldGameEngine(new OverworldEagleEyeWorldCanvas(contentProvider, worldData.Boundary), worldData);
+            return new OverworldGameEngine(new OverworldEagleEyeWorldCanvas(contentProvider, worldManager.World.Boundary), worldManager);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Engine
+﻿using OpenAnt.World;
+
+namespace OpenAnt.Engine
 {
     using Canvas;
     using Generator;
@@ -17,15 +19,15 @@
         /// <param name="worldData">
         /// The world data.
         /// </param>
-        public UndergroundGameEngine(EagleEyeWorldCanvas canvas, WorldData worldData) : base(canvas, worldData)
+        public UndergroundGameEngine(EagleEyeWorldCanvas canvas, IWorldManager worldManager) : base(canvas, worldManager)
         {
         }
 
-        public static GameEngine Create(ContentProvider contentProvider)
+        public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
             // TODO this should be underworld
-            var worldData = OverworldGenerator.Make(contentProvider);
-            return new UndergroundGameEngine(new UndergroundEagleEyeWorldCanvas(contentProvider, worldData.Boundary), worldData);
+            var worldData = OverworldGenerator.Make(contentProvider, null); // TODO replace worlddata with wold manager and put in here
+            return new UndergroundGameEngine(new UndergroundEagleEyeWorldCanvas(contentProvider, worldData.Boundary), worldManager);
         }
     }
 }

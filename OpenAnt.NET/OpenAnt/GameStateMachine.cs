@@ -4,6 +4,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Engine;
+    using World;
 
     /// <summary>
     /// Decides how to show in-game overlays and input interpretation..
@@ -11,7 +12,7 @@
     public class GameStateMachine
     {
         private GameEngine currentEngine;
-        
+        private IWorldManager worldManager;
         private int prevStateAge;
         private KeyboardState prevState;
 
@@ -23,10 +24,12 @@
         /// </param>
         public GameStateMachine(ContentProvider contentProvider)
         {
-            //canvas = new UndergroundEagleEyeWorldCanvas(texture);
-            // canvas = new OverworldEagleEyeWorldCanvas(contentProvider);
+            // TODO we'd load a save game from here possibly
+            // NOTE this is how we go between local/network
+            this.worldManager = new InMemoryWorldManager(contentProvider);
+
             // TODO state machine flips between engines
-            this.currentEngine = OverworldGameEngine.Create(contentProvider);
+            this.currentEngine = OverworldGameEngine.Create(contentProvider, this.worldManager);
         }
 
         public void Draw(SpriteBatch spriteBatch)

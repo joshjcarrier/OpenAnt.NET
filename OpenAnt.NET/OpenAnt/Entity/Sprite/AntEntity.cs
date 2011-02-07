@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Entity.Sprite
+﻿using OpenAnt.World;
+
+namespace OpenAnt.Entity.Sprite
 {
     using Microsoft.Xna.Framework;
     using Decorator.Collision;
@@ -9,16 +11,18 @@
 
     public static class AntEntity
     {
-        public static GameEntityBase Create(ContentProvider contentProvider, Point position)
+        public static GameEntityBase Create(ContentProvider contentProvider, Point position, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
             var animation = new Texture2D[2];
             animation[0] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk1);
             animation[1] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk2);
 
-            var baseEntity = new GameEntityBase(new Rectangle(position.X, position.Y, 1, 1));
-            baseEntity = new AnimationRenderEntity(baseEntity, animation);
+            // apply interactive elements first
+            var interactableEntity = new InteractableGameEntityBase(new Rectangle(position.X, position.Y, 1, 1), notifyWorldChangeRequested);
+            interactableEntity = new MovingEntity(interactableEntity);
+
+            GameEntityBase baseEntity = new AnimationRenderEntity(interactableEntity, animation);
             baseEntity = new CollisionBarrierEntity(baseEntity);
-            baseEntity = new MovingEntity(baseEntity);
             return new WorkerAntIntelligence(baseEntity);
         }
     }

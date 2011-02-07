@@ -6,10 +6,11 @@
     using Entity;
     using Entity.Sprite;
     using Engine;
+    using World;
 
     public class OverworldGenerator
     {
-        public static WorldData Make(ContentProvider contentProvider)
+        public static WorldData Make(ContentProvider contentProvider, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
             var boundary = new Rectangle(0, 0, 40, 30);
 
@@ -26,7 +27,7 @@
                 }
             }
 
-            var Player = YellowAntEntity.Create(contentProvider, new Point(5, 1));
+            var Player = YellowAntEntity.Create(contentProvider, new Point(5, 1), notifyWorldChangeRequested);
 
             var SpriteData = new List<GameEntityBase>();
             var r = new Random();
@@ -38,7 +39,7 @@
             var CpuSpriteData = new List<GameEntityBase>();
             for (var x = 0; x < 10; x++)
             {
-                var entity = AntEntity.Create(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height)));
+                var entity = AntEntity.Create(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height)), notifyWorldChangeRequested);
                 CpuSpriteData.Add(entity);
             }
 

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using OpenAnt.Helper;
-
-namespace OpenAnt.Engine
+﻿namespace OpenAnt.Engine
 {
     using System.Linq;
     using Microsoft.Xna.Framework.Graphics;
     using Canvas;
     using Entity;
+    using Helper;
+    using World;
 
     /// <summary>
     /// Handles player logic, movement.
@@ -14,70 +13,70 @@ namespace OpenAnt.Engine
     public abstract class GameEngine
     {
         private EagleEyeWorldCanvas canvas;
-        protected WorldData worldData;
+        protected IWorldManager WorldManager;
 
-        protected GameEngine(EagleEyeWorldCanvas canvas, WorldData worldData)
+        protected GameEngine(EagleEyeWorldCanvas canvas, IWorldManager worldManager)
         {
             this.canvas = canvas;
-            this.worldData = worldData;
+            this.WorldManager = worldManager;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             this.canvas.DrawUnderlay(spriteBatch);
-            this.canvas.DrawSprites(spriteBatch, this.worldData.SurfaceData);
-            this.canvas.DrawSprites(spriteBatch, this.worldData.SpriteData);
-            this.canvas.DrawSprites(spriteBatch, this.worldData.CpuSpriteData);
+            this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SurfaceData);
+            this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SpriteData);
+            this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.CpuSpriteData);
             this.canvas.DrawOverlay(spriteBatch);
         }
 
         public void MovePlayer(int deltaX, int deltaY)
         {
-            this.MoveSprite(this.worldData.Player, deltaX, deltaY);
+            this.MoveSprite(this.WorldManager.World.Player, deltaX, deltaY);
 
             // centralize viewport on player
-            this.canvas.CentralizeViewport((int)this.worldData.Player.Position.X, (int)this.worldData.Player.Position.Y);
+            this.canvas.CentralizeViewport((int)this.WorldManager.World.Player.Position.X, (int)this.WorldManager.World.Player.Position.Y);
         }
 
         public void Interact()
         {
             // TODO this shouldn't be here, since cpu-ants can't access stuff here...
-            var newPosition = this.worldData.Player.Position.Location;
-            var delta = OrientationHelper.GetAdjacentPointDelta(this.worldData.Player.FacingDirection);
+            var newPosition = this.WorldManager.World.Player.Position.Location;
+            var delta = OrientationHelper.GetAdjacentPointDelta(this.WorldManager.World.Player.FacingDirection);
             newPosition.X += delta.X;
             newPosition.Y += delta.Y;
 
-            var collisionTile = this.worldData.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
+            var collisionTile = this.WorldManager.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
             if (collisionTile != null)
             {
-                if (this.worldData.Player.HoldingEntity == null)
+                if (this.WorldManager.World.Player.HoldingEntity == null)
                 {
-                    this.worldData.Player.InteractWith(collisionTile);
+                    this.WorldManager.World.Player.InteractWith(collisionTile);
 
                     // NOTE this is really an underworld thing...
-                    this.worldData.SpriteData.Remove(collisionTile);
+                    this.WorldManager.World.SpriteData.Remove(collisionTile);
                 }
             }
             else
             {
                 // put the thing down
-                if (this.worldData.Player.HoldingEntity != null)
+                if (this.WorldManager.World.Player.HoldingEntity != null)
                 {
-                    var placedEntity = this.worldData.Player.HoldingEntity;
+                    var placedEntity = this.WorldManager.World.Player.HoldingEntity;
                     var pos = placedEntity.Position;
                     pos.Location = newPosition;
                     placedEntity.Position = pos;
 
                     // fix the world map
-                    this.worldData.SpriteData.Add(placedEntity);
-                    this.worldData.Player.HoldingEntity = null;
+                    this.WorldManager.World.SpriteData.Add(placedEntity);
+                    this.WorldManager.World.Player.HoldingEntity = null;
                 }
             }
         }
 
         public void Update()
         {
-            this.worldData.CpuSpriteData.ForEach(o =>
+            this.WorldManager.World.CpuSpriteData.ForEach(o =>
             {
                 var point = o.UpdateAwareness();
                 MoveSprite(o, point.X, point.Y);
@@ -95,14 +94,14 @@ namespace OpenAnt.Engine
             sprite.FacingDirection = OrientationHelper.GetFacingDirection(sprite.Position.Location, newPosition);
             
             // edge of the world blocks
-            if (!this.worldData.Boundary.Contains(newPosition))
+            if (!this.WorldManager.World.Boundary.Contains(newPosition))
             {
                 return;
             }
 
             // TODO uncrashable collision detection and decision
             bool doMove = true;
-            var collisionTile = this.worldData.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
+            var collisionTile = this.WorldManager.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
             if (collisionTile != null)
             {
                 doMove = collisionTile.CollideOn(sprite);
