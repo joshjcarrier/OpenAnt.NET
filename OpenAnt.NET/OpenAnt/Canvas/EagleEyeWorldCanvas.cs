@@ -28,7 +28,7 @@
             // NOTE content provider to build overlay textures...
             this.contentProvider = contentProvider;
             this.texture = contentProvider.GetTerrainTexture(TerrainResource.Foliage1);
-            this.Viewport = new Rectangle(0, 0, 40, 30);
+            this.Viewport = new Rectangle(0, 0, 30, 30);
             this.worldBoundary = worldBoundary;
         }
 
@@ -98,9 +98,9 @@
             }
 
             // TODO what's the formula for this...
-            if (viewportX > this.worldBoundary.Width - 40)
+            if (viewportX > this.worldBoundary.Width - 35)
             {
-                viewportX = this.worldBoundary.Width - 40;
+                viewportX = this.worldBoundary.Width - 35;
             }
 
             if (viewportY > this.worldBoundary.Height - 24)
