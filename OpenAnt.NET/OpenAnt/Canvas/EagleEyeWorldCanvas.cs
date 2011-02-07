@@ -97,9 +97,9 @@ namespace OpenAnt.Canvas
             }
 
             // TODO what's the formula for this...
-            if (viewportX > this.worldBoundary.Width - 40)
+            if (viewportX > this.worldBoundary.Width - 35)
             {
-                viewportX = this.worldBoundary.Width - 40;
+                viewportX = this.worldBoundary.Width - 35;
             }
 
             if (viewportY > this.worldBoundary.Height - 24)

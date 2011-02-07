@@ -4,6 +4,7 @@ namespace OpenAnt
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Screen;
+    using Canvas;
 
     /// <summary>
     /// This is the main type for your game
@@ -57,6 +58,19 @@ namespace OpenAnt
 
             // graphical interface
             this.gameCanvasScreen = new GameCanvasScreen(this.contentProvider);
+
+            ViewportHelper.CurrentDevice = GraphicsDevice;
+            ViewportHelper.DefaultViewport = GraphicsDevice.Viewport;
+            Viewport viewport = GraphicsDevice.Viewport;
+            viewport.Width -= 100;
+            viewport.X = 100;
+            ViewportHelper.SpriteViewport = viewport;
+
+            viewport = GraphicsDevice.Viewport;
+            viewport.Width = 100;
+            ViewportHelper.MenuViewport = viewport;
+
+            GraphicsDevice.Viewport = ViewportHelper.SpriteViewport;
         }
 
         /// <summary>
