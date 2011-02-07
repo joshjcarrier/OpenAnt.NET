@@ -13,10 +13,29 @@
     /// </summary>
     public class GameEntityBase
     {
-        private Player allegiance;
-        private EntityType entityType;
+        /// <summary>
+        /// The allegiance of the entity.
+        /// </summary>
+        private readonly Player allegiance;
+
+        /// <summary>
+        /// The type of entity being represented.
+        /// </summary>
+        private readonly EntityType entityType;
+
+        /// <summary>
+        /// The health of the entity.
+        /// </summary>
         private int health;
+
+        /// <summary>
+        /// The position of the entity.
+        /// </summary>
         private Rectangle position;
+
+        /// <summary>
+        /// The notification change request service.
+        /// </summary>
         private INotifyWorldChangeRequested notifyWorldChangeRequested;
 
         /// <summary>
@@ -32,6 +51,21 @@
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameEntityBase"/> class.
+        /// </summary>
+        /// <param name="type">
+        /// The type of entity being represented.
+        /// </param>
+        /// <param name="position">
+        /// The position.
+        /// </param>
+        /// <param name="allegiance">
+        /// The allegiance.
+        /// </param>
+        /// <param name="notifyWorldChangeRequested">
+        /// The notify world change requested.
+        /// </param>
         public GameEntityBase(EntityType type, Rectangle position, Player allegiance, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
             this.allegiance = allegiance;
@@ -41,6 +75,7 @@
             this.position = position;
         }
 
+        #region Properties
         /// <summary>
         /// Gets Allegiance.
         /// </summary>
@@ -85,21 +120,30 @@
         /// </summary>
         public virtual GameEntityBase HoldingEntity { get; set; }
 
-        #region World Change Request
+        /// <summary>
+        /// Gets or sets NotifyWorldChangeRequested.
+        /// </summary>
         internal virtual INotifyWorldChangeRequested NotifyWorldChangeRequested
         {
             get { return this.notifyWorldChangeRequested; }
             set { this.notifyWorldChangeRequested = value; }
         }
-
-        protected void OnNotifyWorldChangeRequested(Point targetLocation, object action)
-        {
-            this.NotifyWorldChangeRequested.OnNotifyWorldChangeRequested(this, targetLocation, action);
-        }
         #endregion
 
         #region Rendering Decorations
 
+        /// <summary>
+        /// Renders the entity.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
+        /// <param name="viewportPosition">
+        /// The viewport position.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual void Render(SpriteBatch spriteBatch, Point viewportPosition)
         {
             throw new InvalidOperationException("Decorator not defined.");
@@ -109,11 +153,35 @@
 
         #region Collision Decorations
 
+        /// <summary>
+        /// Collide the entity on the given colliding entity.
+        /// </summary>
+        /// <param name="collidingEntity">
+        /// The colliding entity.
+        /// </param>
+        /// <returns>
+        /// True on collision.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual bool CollideOn(GameEntityBase collidingEntity)
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
 
+        /// <summary>
+        /// Tests to see if entity collides with another at the given location.
+        /// </summary>
+        /// <param name="hitTestLocation">
+        /// The hit test location.
+        /// </param>
+        /// <returns>
+        /// True if a collision with an entity in the location.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual bool IsHitTestCollision(Point hitTestLocation)
         {
             throw new InvalidOperationException("Decorator not defined.");
@@ -123,6 +191,15 @@
 
         #region Intelligence Decorations
 
+        /// <summary>
+        /// Decorator allowing entity artificial intelligence.
+        /// </summary>
+        /// <returns>
+        /// The position decided to move to.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual Point UpdateAwareness()
         {
             throw new InvalidOperationException("Decorator not defined.");
@@ -131,15 +208,52 @@
         #endregion
 
         #region Interaction Decorations
+
+        /// <summary>
+        /// Decorator allowing movement.
+        /// </summary>
+        /// <param name="newPosition">
+        /// The new position.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual void Move(Point newPosition)
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
 
+        /// <summary>
+        /// Decorator allowing interaction.
+        /// </summary>
+        /// <param name="targetPoint">
+        /// The target point.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// Entity must be decorated to be invoked.
+        /// </exception>
         public virtual void InteractWith(Point targetPoint)
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
+        #endregion
+
+        #region World Change Request
+
+        /// <summary>
+        /// Allows world changes to be requested.
+        /// </summary>
+        /// <param name="targetLocation">
+        /// The target location.
+        /// </param>
+        /// <param name="action">
+        /// The action.
+        /// </param>
+        protected void OnNotifyWorldChangeRequested(Point targetLocation, object action)
+        {
+            this.NotifyWorldChangeRequested.OnNotifyWorldChangeRequested(this, targetLocation, action);
+        }
+
         #endregion
     }
 }

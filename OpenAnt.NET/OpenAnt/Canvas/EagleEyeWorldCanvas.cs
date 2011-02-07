@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace OpenAnt.Canvas
+﻿namespace OpenAnt.Canvas
 {
     #region using directives
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Entity;
+    using System;
 
     #endregion
 
@@ -19,6 +18,7 @@ namespace OpenAnt.Canvas
         protected Texture2D texture;
         protected Rectangle worldBoundary;
         private readonly string buildstamp = DateTime.Today.ToString("yyyyMMdd");
+        private Rectangle Viewport;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EagleEyeWorldCanvas"/> class.
@@ -26,7 +26,10 @@ namespace OpenAnt.Canvas
         /// <param name="contentProvider">
         /// The content provider.
         /// </param>
-        public EagleEyeWorldCanvas(ContentProvider contentProvider, Rectangle worldBoundary)
+        /// <param name="worldBoundary">
+        /// The world Boundary.
+        /// </param>
+        protected EagleEyeWorldCanvas(ContentProvider contentProvider, Rectangle worldBoundary)
         {
             // NOTE content provider to build overlay textures...
             this.contentProvider = contentProvider;
@@ -34,8 +37,6 @@ namespace OpenAnt.Canvas
             this.Viewport = new Rectangle(0, 0, 30, 30);
             this.worldBoundary = worldBoundary;
         }
-
-        public Rectangle Viewport;
 
         /// <summary>
         /// Draws any overlay artifacts after sprites and underlay have been drawn.
@@ -56,7 +57,7 @@ namespace OpenAnt.Canvas
         /// </param>
         public void DrawSprites(SpriteBatch spriteBatch, IEnumerable<GameEntityBase> spriteData)
         {
-            spriteBatch.DrawString(this.contentProvider.GetFont(FontResource.SegoeUiMonoRegular), "OpenAnt.NET build " + buildstamp, new Vector2(5, 5), Color.White); 
+            spriteBatch.DrawString(this.contentProvider.GetFont(FontResource.SegoeUiMonoRegular), "OpenAnt.NET build " + this.buildstamp, new Vector2(5, 5), Color.White); 
 
             // TODO viewport restriction optimization);)
             foreach (var sprite in spriteData)

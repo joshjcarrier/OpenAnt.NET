@@ -8,8 +8,26 @@
     using Decorator.Intelligence;
     using World;
 
+    /// <summary>
+    /// Ant entity generator.
+    /// </summary>
     public static class AntEntity
     {
+        /// <summary>
+        /// Creates a new ant entity.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="position">
+        /// The position.
+        /// </param>
+        /// <param name="notifyWorldChangeRequested">
+        /// The notify world change requested.
+        /// </param>
+        /// <returns>
+        /// A new ant entity.
+        /// </returns>
         public static GameEntityBase Create(ContentProvider contentProvider, Point position, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
             var animation = new Texture2D[2];

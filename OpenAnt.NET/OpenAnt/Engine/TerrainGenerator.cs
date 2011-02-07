@@ -6,13 +6,31 @@
     using Entity;
     using Entity.Terrain;
 
-    public class TerrainGenerator
+    /// <summary>
+    /// Generates Terrain-based tiles.
+    /// </summary>
+    public static class TerrainGenerator
     {
-        static Random r = new Random();
+        /// <summary>
+        /// Random number generator used to create new worlds.
+        /// </summary>
+        private static readonly Random RandomGen = new Random();
 
+        /// <summary>
+        /// Generates a surface terrain.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="position">
+        /// The position.
+        /// </param>
+        /// <returns>
+        /// A random surface terrain.
+        /// </returns>
         public static GameEntityBase MakeSurface(ContentProvider contentProvider, Point position)
         {
-            var thing = r.Next(0, 100);
+            var thing = RandomGen.Next(0, 100);
             Texture2D texture;
             if (thing > 98)
             {
@@ -46,9 +64,21 @@
             return TerrainEntity.CreateSurface(texture, position);
         }
 
+        /// <summary>
+        /// Generates a random terrain obstacle.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="position">
+        /// The position.
+        /// </param>
+        /// <returns>
+        /// A random terrain obstacle.
+        /// </returns>
         public static GameEntityBase MakeObstacle(ContentProvider contentProvider, Point position)
         {
-            var thing = r.Next(0, 100);
+            var thing = RandomGen.Next(0, 100);
             Texture2D texture;
             int size = 1;
             if (thing > 92)

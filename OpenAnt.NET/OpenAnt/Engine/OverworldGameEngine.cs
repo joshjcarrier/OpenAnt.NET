@@ -15,10 +15,25 @@
         /// <param name="canvas">
         /// The canvas.
         /// </param>
+        /// <param name="worldManager">
+        /// The world Manager.
+        /// </param>
         protected OverworldGameEngine(EagleEyeWorldCanvas canvas, IWorldManager worldManager) : base(canvas, worldManager)
         {
         }
 
+        /// <summary>
+        /// Creates a new Overworld game engine.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="worldManager">
+        /// The world manager.
+        /// </param>
+        /// <returns>
+        /// A new Overworld game engine.
+        /// </returns>
         public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
             var worldData = OverworldGenerator.Make(contentProvider, worldManager);

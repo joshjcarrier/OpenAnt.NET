@@ -8,7 +8,10 @@
     /// </summary>
     public class StaticRenderEntity : GameEntityDecorator
     {
-        private Texture2D texture;
+        /// <summary>
+        /// The texture to render.
+        /// </summary>
+        private readonly Texture2D texture;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticRenderEntity"/> class.
@@ -24,16 +27,23 @@
             this.texture = texture;
         }
 
+        /// <summary>
+        /// Renders a static texture.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
+        /// <param name="viewportPosition">
+        /// The viewport position.
+        /// </param>
         public override void Render(SpriteBatch spriteBatch, Point viewportPosition)
         {
-            spriteBatch.Draw(
-                this.texture,
-                new Rectangle(
-                        ((int)viewportPosition.X) * HardCodes.TileSize,
-                        ((int)viewportPosition.Y) * HardCodes.TileSize,
-                        this.Position.Width * HardCodes.TileSize,
-                        this.Position.Height * HardCodes.TileSize),
-                Color.White);
+            var textureCoordinates = new Rectangle(
+                viewportPosition.X * HardCodes.TileSize,
+                viewportPosition.Y * HardCodes.TileSize,
+                this.Position.Width * HardCodes.TileSize,
+                this.Position.Height * HardCodes.TileSize);
+            spriteBatch.Draw(this.texture, textureCoordinates, Color.White);
         }
     }
 }

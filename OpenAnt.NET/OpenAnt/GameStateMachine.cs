@@ -11,10 +11,29 @@
     /// </summary>
     public class GameStateMachine
     {
+        /// <summary>
+        /// Available game engines.
+        /// </summary>
+        private readonly GameEngine[] engines;
+
+        /// <summary>
+        /// The current game engine.
+        /// </summary>
         private int currentEngine;
-        private GameEngine[] engines;
-        // private IWorldManager worldManager;
+
+        /// <summary>
+        /// The current minor tick value.
+        /// </summary>
+        private int minorTick;
+
+        /// <summary>
+        /// The age in ticks of the previous input state.
+        /// </summary>
         private int prevStateAge;
+
+        /// <summary>
+        /// The previous keyboard state.
+        /// </summary>
         private KeyboardState prevState;
 
         /// <summary>
@@ -32,19 +51,29 @@
             var underWorldManager = new InMemoryWorldManager(contentProvider);
 
             // TODO state machine flips between engines
-            engines = new GameEngine[2];
-            engines[0] = OverworldGameEngine.Create(contentProvider, overWorldManager);
-            engines[1] = UndergroundGameEngine.Create(contentProvider, underWorldManager);
+            this.engines = new GameEngine[2];
+            this.engines[0] = OverworldGameEngine.Create(contentProvider, overWorldManager);
+            this.engines[1] = UndergroundGameEngine.Create(contentProvider, underWorldManager);
         }
 
+        /// <summary>
+        /// Draws for current state engine.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
         public void Draw(SpriteBatch spriteBatch)
         {
             // gameplay
             this.engines[this.currentEngine].Draw(spriteBatch);
         }
 
-        private int minorTick = 0;
-
+        /// <summary>
+        /// Update the engines and process input.
+        /// </summary>
+        /// <param name="keyboardState">
+        /// The keyboard state.
+        /// </param>
         public void Update(KeyboardState keyboardState)
         {
             if (this.minorTick == 0)
@@ -63,31 +92,37 @@
             inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Space, () => this.engines[this.currentEngine].Interact());
 
             // TODO temporary, until engines can signal a switch-out
-            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Q, () => { this.currentEngine += 1; this.currentEngine %= 2; }); 
-            
-            if(inputActionIgnored)
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Q, () => { this.currentEngine += 1; this.currentEngine %= 2; });
+
+            if (inputActionIgnored)
             {
-                prevStateAge += 1;
+                this.prevStateAge += 1;
             }
 
             // click'n'hold
-            if (prevStateAge > 20)
+            if (this.prevStateAge > 20)
             {
-                prevState = new KeyboardState();
-                prevStateAge = 0;
+                this.prevState = new KeyboardState();
+                this.prevStateAge = 0;
             }
             else
             {
-                prevState = keyboardState;   
+                this.prevState = keyboardState;   
             }
         }
 
         /// <summary>
-        /// 
+        /// Helps to process keyboard input.
         /// </summary>
-        /// <param name="keyboardState"></param>
-        /// <param name="key"></param>
-        /// <param name="inputAction"></param>
+        /// <param name="keyboardState">
+        /// The keyboard state to process.
+        /// </param>
+        /// <param name="key">
+        /// The key to process for.
+        /// </param>
+        /// <param name="inputAction">
+        /// The action to perform when keyboard input detected.
+        /// </param>
         /// <returns>
         /// True if the keyboard input event was ignored.
         /// </returns>

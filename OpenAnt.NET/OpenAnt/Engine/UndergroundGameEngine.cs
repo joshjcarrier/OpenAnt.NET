@@ -15,13 +15,25 @@
         /// <param name="canvas">
         /// The canvas.
         /// </param>
-        /// <param name="worldData">
-        /// The world data.
+        /// <param name="worldManager">
+        /// The world Manager.
         /// </param>
         public UndergroundGameEngine(EagleEyeWorldCanvas canvas, IWorldManager worldManager) : base(canvas, worldManager)
         {
         }
 
+        /// <summary>
+        /// Creates an underground game engine.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="worldManager">
+        /// The world manager.
+        /// </param>
+        /// <returns>
+        /// An underground game engine.
+        /// </returns>
         public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
             var worldData = UndergroundGenerator.Make(contentProvider, worldManager);

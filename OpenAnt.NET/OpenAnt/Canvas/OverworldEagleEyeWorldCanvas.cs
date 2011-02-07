@@ -17,6 +17,9 @@
         /// <param name="contentProvider">
         /// The content provider.
         /// </param>
+        /// <param name="worldBoundary">
+        /// The world Boundary.
+        /// </param>
         public OverworldEagleEyeWorldCanvas(ContentProvider contentProvider, Rectangle worldBoundary)
             : base(contentProvider, worldBoundary)
         {
@@ -31,7 +34,7 @@
         public override void DrawOverlay(SpriteBatch spriteBatch)
         {
             // TODO drawing something meaningful
-            //spriteBatch.Draw(contentProvider.GetSpriteTexture(SpriteResource.Seed1), new Rectangle(0,0,50,50), Color.White);
+            // spriteBatch.Draw(contentProvider.GetSpriteTexture(SpriteResource.Seed1), new Rectangle(0,0,50,50), Color.White);
             spriteBatch.Draw(this.contentProvider.GetTerrainTexture(null), new Rectangle(0, 0, 100, 800), Color.Silver);
         }
 

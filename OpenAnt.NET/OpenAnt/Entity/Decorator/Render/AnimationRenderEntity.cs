@@ -1,39 +1,62 @@
-﻿using OpenAnt.Helper;
-
-namespace OpenAnt.Entity.Decorator.Render
+﻿namespace OpenAnt.Entity.Decorator.Render
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Helper;
 
     /// <summary>
     /// Entity which has an animation.
     /// </summary>
     public class AnimationRenderEntity : GameEntityDecorator
     {
+        /// <summary>
+        /// The animation texture frames.
+        /// </summary>
+        private readonly Texture2D[] animation;
+
+        /// <summary>
+        /// The current animation frame.
+        /// </summary>
         private int animationFrame;
 
-        private Texture2D[] animation;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnimationRenderEntity"/> class.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <param name="textureFrames">
+        /// The texture frames.
+        /// </param>
         public AnimationRenderEntity(GameEntityBase entity, Texture2D[] textureFrames)
             : base(entity)
         {
             this.animation = textureFrames;
         }
 
+        /// <summary>
+        /// Renders the entity.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
+        /// <param name="viewportPosition">
+        /// The viewport position.
+        /// </param>
         public override void Render(SpriteBatch spriteBatch, Point viewportPosition)
         {
             Texture2D texture;
 
-            if (animationFrame < 15)
+            if (this.animationFrame < 15)
             {
-                texture = animation[0];
+                texture = this.animation[0];
             }
             else
             {
-                texture = animation[1];
+                texture = this.animation[1];
             }
 
-            Rectangle spriteDestRect = new Rectangle(
+            var spriteDestRect = new Rectangle(
                                                     viewportPosition.X * HardCodes.TileSize,
                                                     viewportPosition.Y * HardCodes.TileSize,
                                                     this.Position.Width * HardCodes.TileSize,
@@ -50,8 +73,8 @@ namespace OpenAnt.Entity.Decorator.Render
                 SpriteEffects.None,
                 0f);
 
-            animationFrame += 1;
-            animationFrame %= 30;
+            this.animationFrame += 1;
+            this.animationFrame %= 30;
 
             // TODO extract this to a base class
             if (this.HoldingEntity != null)

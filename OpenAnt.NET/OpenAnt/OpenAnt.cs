@@ -11,18 +11,28 @@ namespace OpenAnt
     /// </summary>
     public class OpenAnt : Game
     {
-        private GraphicsDeviceManager graphics;
+        /// <summary>
+        /// The sprite batch used for rendering.
+        /// </summary>
         private SpriteBatch spriteBatch;
+
+        /// <summary>
+        /// The main menu screen.
+        /// </summary>
         private MainMenuScreen mainMenuScreen;
+
+        /// <summary>
+        /// The game canvas screen.
+        /// </summary>
         private GameCanvasScreen gameCanvasScreen;
-        private ContentProvider contentProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenAnt"/> class.
         /// </summary>
         public OpenAnt()
         {
-            this.graphics = new GraphicsDeviceManager(this);
+            // initializes the graphics device manager
+            new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -54,10 +64,10 @@ namespace OpenAnt
             nullTexture.SetData(new[] { Color.White });
 
             // loads and provides content
-            this.contentProvider = new ContentProvider(this.Content, nullTexture);
+            var contentProvider = new ContentProvider(this.Content, nullTexture);
 
             // graphical interface
-            this.gameCanvasScreen = new GameCanvasScreen(this.contentProvider);
+            this.gameCanvasScreen = new GameCanvasScreen(contentProvider);
 
             ViewportHelper.CurrentDevice = GraphicsDevice;
             ViewportHelper.DefaultViewport = GraphicsDevice.Viewport;
@@ -111,7 +121,7 @@ namespace OpenAnt
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: smartly switch between screens
-            //this.mainMenuScreen.Draw(this.spriteBatch);
+            // this.mainMenuScreen.Draw(this.spriteBatch);
             this.gameCanvasScreen.Draw(this.spriteBatch);
 
             base.Draw(gameTime);

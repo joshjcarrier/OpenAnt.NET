@@ -1,28 +1,45 @@
-﻿using OpenAnt.World;
-
-namespace OpenAnt.Entity.Decorator.Intelligence
+﻿namespace OpenAnt.Entity.Decorator.Intelligence
 {
     using System;
     using Microsoft.Xna.Framework;
+    using World;
 
     /// <summary>
     /// Artificial intelligence for a worker ant.
     /// </summary>
     public class WorkerAntIntelligence : GameEntityDecorator
     {
+        /// <summary>
+        /// Random number generator used to fuzz AI.
+        /// </summary>
+        private static readonly Random RandomGen = new Random();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkerAntIntelligence"/> class.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
         public WorkerAntIntelligence(GameEntityBase entity) : base(entity)
         {
         }
 
-        static Random r = new Random();
-
+        /// <summary>
+        /// Process entity decisions.
+        /// </summary>
+        /// <returns>
+        /// The new location.
+        /// </returns>
+        /// <remarks>
+        /// Remove return value.
+        /// </remarks>
         public override Point UpdateAwareness()
         {
             // TODO some real awareness
             var location = Position.Location;
 
-            var testX = r.Next(100);
-            var testY = r.Next(100);
+            var testX = RandomGen.Next(100);
+            var testY = RandomGen.Next(100);
 
             if (testX > 40)
             {

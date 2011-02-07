@@ -10,24 +10,54 @@
     /// </summary>
     public class InMemoryWorldManager : IWorldManager
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InMemoryWorldManager"/> class.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
         public InMemoryWorldManager(ContentProvider contentProvider)
         {
             // TODO fix dependency this.World = OverworldGenerator.Make(contentProvider, this); // TODO this would be loaded from somewhere
         }
 
+        /// <summary>
+        /// Gets or sets World.
+        /// </summary>
         public WorldData World { get; set; }
 
+        /// <summary>
+        /// Checks for collisions at the given point in the world.
+        /// </summary>
+        /// <param name="location">
+        /// The location.
+        /// </param>
+        /// <returns>
+        /// Gets the collidable entity at given location.
+        /// </returns>
         public GameEntityBase GetEntityAt(Point location)
         {
             // TODO is hit test collision check necessary?
             return this.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(location)); // FIXME SingleOrDefault/FirstOrDefault = bad
         }
 
+        /// <summary>
+        /// Responds to a world change request.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="targetLocation">
+        /// The target location.
+        /// </param>
+        /// <param name="action">
+        /// The action.
+        /// </param>
         public void OnNotifyWorldChangeRequested(GameEntityBase sender, Point targetLocation, object action)
         {
-            ActionType actionType = (ActionType) action;
+            var actionType = (ActionType)action;
 
-            switch(actionType)
+            switch (actionType)
             {
                 case ActionType.PrecisionMove:
                     this.MoveEntity(sender, targetLocation, true);
@@ -41,6 +71,15 @@
             }
         }
 
+        /// <summary>
+        /// Performs an interaction operation on the target location.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="targetLocation">
+        /// The target location.
+        /// </param>
         private void Interact(GameEntityBase sender, Point targetLocation)
         {
             // TODO use targetLocation for cpu ants?
@@ -79,6 +118,18 @@
             }
         }
 
+        /// <summary>
+        /// Perform a move operation on the entity.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <param name="targetLocation">
+        /// The target location.
+        /// </param>
+        /// <param name="isPrecisionMove">
+        /// The is precision move.
+        /// </param>
         private void MoveEntity(GameEntityBase entity, Point targetLocation, bool isPrecisionMove)
         {
             var oldPosition = entity.Position.Location;
@@ -95,7 +146,7 @@
             }
 
             // TODO uncrashable collision detection and decision
-            bool doMove = true;
+            var doMove = true;
             var collisionTile = this.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(targetLocation)); // FIXME SingleOrDefault/FirstOrDefault = bad
             if (collisionTile != null)
             {

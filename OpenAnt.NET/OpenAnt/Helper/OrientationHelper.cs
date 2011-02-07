@@ -1,12 +1,24 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace OpenAnt.Helper
+﻿namespace OpenAnt.Helper
 {
+    using Microsoft.Xna.Framework;
+
+    /// <summary>
+    /// Helper functions for orientation operations.
+    /// </summary>
     public static class OrientationHelper
     {
+        /// <summary>
+        /// Gets the delta co-ordinate correlated with the orientation.
+        /// </summary>
+        /// <param name="relative">
+        /// The relative.
+        /// </param>
+        /// <returns>
+        /// The delta co-ordinate.
+        /// </returns>
         public static Point GetAdjacentPointDelta(Orientation relative)
         {
-            Point heldEntityPosition = Point.Zero;
+            var heldEntityPosition = Point.Zero;
             switch (relative)
             {
                 case Orientation.North:
@@ -42,41 +54,78 @@ namespace OpenAnt.Helper
             return heldEntityPosition;
         }
 
+        /// <summary>
+        /// Gets the orientation relative to the old and new position.
+        /// </summary>
+        /// <param name="oldPosition">
+        /// The old position.
+        /// </param>
+        /// <param name="newPosition">
+        /// The new position.
+        /// </param>
+        /// <returns>
+        /// The calculated orientation.
+        /// </returns>
         public static Orientation GetFacingDirection(Point oldPosition, Point newPosition)
         {
-            var xDiff = newPosition.X - oldPosition.X;
-            var yDiff = newPosition.Y - oldPosition.Y;
+            var diffX = newPosition.X - oldPosition.X;
+            var diffY = newPosition.Y - oldPosition.Y;
 
-            Orientation newOrientation = Orientation.North;
-            if (xDiff == 0)
+            var newOrientation = Orientation.North;
+            if (diffX == 0)
             {
-                if (yDiff > 0)
+                if (diffY > 0)
+                {
                     newOrientation = Orientation.South;
+                }
                 else
+                {
                     newOrientation = Orientation.North;
+                }
             }
-            else if (xDiff > 0)
+            else if (diffX > 0)
             {
-                if (yDiff == 0)
+                if (diffY == 0)
+                {
                     newOrientation = Orientation.East;
-                else if (yDiff < 0)
+                }
+                else if (diffY < 0)
+                {
                     newOrientation = Orientation.NorthEast;
+                }
                 else
+                {
                     newOrientation = Orientation.SouthEast;
+                }
             }
-            else if (xDiff < 0)
+            else if (diffX < 0)
             {
-                if (xDiff < 0 && yDiff == 0)
+                if (diffX < 0 && diffY == 0)
+                {
                     newOrientation = Orientation.West;
-                else if (yDiff < 0)
+                }
+                else if (diffY < 0)
+                {
                     newOrientation = Orientation.NorthWest;
+                }
                 else
+                {
                     newOrientation = Orientation.SouthWest;
+                }
             }
 
             return newOrientation;
         }
 
+        /// <summary>
+        /// Gets the rotation angle for the given orientation.
+        /// </summary>
+        /// <param name="orientation">
+        /// The orientation.
+        /// </param>
+        /// <returns>
+        /// The rotation angle.
+        /// </returns>
         public static float GetRotationAngle(Orientation orientation)
         {
             switch (orientation)

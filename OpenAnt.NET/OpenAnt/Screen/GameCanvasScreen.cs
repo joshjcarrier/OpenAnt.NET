@@ -8,23 +8,43 @@
     /// </summary>
     public class GameCanvasScreen
     {
-        private GameStateMachine stateMachine;
+        /// <summary>
+        /// The game state machine.
+        /// </summary>
+        private readonly GameStateMachine stateMachine;
 
-        // TODO replace with content loader
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameCanvasScreen"/> class.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
         public GameCanvasScreen(ContentProvider contentProvider)
         {
-            stateMachine = new GameStateMachine(contentProvider);    
+            this.stateMachine = new GameStateMachine(contentProvider);    
         }
 
+        /// <summary>
+        /// Updates the game canvas screen, with input information.
+        /// </summary>
+        /// <param name="keyboardState">
+        /// The keyboard state.
+        /// </param>
         public void Update(KeyboardState keyboardState)
         {
             // TODO determine how to route information?
-            stateMachine.Update(keyboardState);
+            this.stateMachine.Update(keyboardState);
         }
 
+        /// <summary>
+        /// Draws the game canvas screen.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            stateMachine.Draw(spriteBatch);
+            this.stateMachine.Draw(spriteBatch);
         }
     }
 }

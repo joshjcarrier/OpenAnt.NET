@@ -17,6 +17,15 @@
         {
         }
 
+        /// <summary>
+        /// Tests to see if entity collides with another at the given location.
+        /// </summary>
+        /// <param name="hitTestLocation">
+        /// The hit test location.
+        /// </param>
+        /// <returns>
+        /// True if a collision with an entity in the location.
+        /// </returns>
         public override bool IsHitTestCollision(Point hitTestLocation)
         {
             return this.Position.Contains(hitTestLocation);
