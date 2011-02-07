@@ -48,40 +48,58 @@ namespace OpenAnt.Helper
             var yDiff = newPosition.Y - oldPosition.Y;
 
             Orientation newOrientation = Orientation.North;
-            if (xDiff == 0 && yDiff < 0)
+            if (xDiff == 0)
             {
-                newOrientation = Orientation.North;
+                if (yDiff > 0)
+                    newOrientation = Orientation.South;
+                else
+                    newOrientation = Orientation.North;
             }
-            else if (xDiff > 0 && yDiff < 0)
+            else if (xDiff > 0)
             {
-                newOrientation = Orientation.NorthEast;
+                if (yDiff == 0)
+                    newOrientation = Orientation.East;
+                else if (yDiff < 0)
+                    newOrientation = Orientation.NorthEast;
+                else
+                    newOrientation = Orientation.SouthEast;
             }
-            else if (xDiff > 0 && yDiff == 0)
+            else if (xDiff < 0)
             {
-                newOrientation = Orientation.East;
-            }
-            else if (xDiff > 0 && yDiff > 0)
-            {
-                newOrientation = Orientation.SouthEast;
-            }
-            else if (xDiff == 0 && yDiff > 0)
-            {
-                newOrientation = Orientation.South;
-            }
-            else if (xDiff < 0 && yDiff > 0)
-            {
-                newOrientation = Orientation.SouthWest;
-            }
-            else if (xDiff < 0 && yDiff == 0)
-            {
-                newOrientation = Orientation.West;
-            }
-            else if (xDiff < 0 && yDiff < 0)
-            {
-                newOrientation = Orientation.NorthWest;
+                if (xDiff < 0 && yDiff == 0)
+                    newOrientation = Orientation.West;
+                else if (yDiff < 0)
+                    newOrientation = Orientation.NorthWest;
+                else
+                    newOrientation = Orientation.SouthWest;
             }
 
             return newOrientation;
+        }
+
+        public static float GetRotationAngle(Orientation orientation)
+        {
+            switch (orientation)
+            {
+                case Orientation.North:
+                    return 0F;
+                case Orientation.NorthEast:
+                    return MathHelper.PiOver4;
+                case Orientation.East:
+                    return MathHelper.PiOver2;
+                case Orientation.SouthEast:
+                    return 3 * MathHelper.PiOver4;
+                case Orientation.South:
+                    return MathHelper.Pi;
+                case Orientation.SouthWest:
+                    return 5 * MathHelper.PiOver4;
+                case Orientation.West:
+                    return 3 * MathHelper.PiOver2;
+                case Orientation.NorthWest:
+                    return 7 * MathHelper.PiOver4;
+                default:
+                    return 0F;
+            }
         }
     }
 }

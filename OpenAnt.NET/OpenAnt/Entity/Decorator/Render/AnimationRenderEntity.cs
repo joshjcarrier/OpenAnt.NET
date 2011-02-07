@@ -14,7 +14,8 @@ namespace OpenAnt.Entity.Decorator.Render
 
         private Texture2D[] animation;
 
-        public AnimationRenderEntity(GameEntityBase entity, Texture2D[] textureFrames) : base(entity)
+        public AnimationRenderEntity(GameEntityBase entity, Texture2D[] textureFrames)
+            : base(entity)
         {
             this.animation = textureFrames;
         }
@@ -32,14 +33,22 @@ namespace OpenAnt.Entity.Decorator.Render
                 texture = animation[1];
             }
 
+            Rectangle spriteDestRect = new Rectangle(
+                                                    viewportPosition.X * HardCodes.TileSize,
+                                                    viewportPosition.Y * HardCodes.TileSize,
+                                                    this.Position.Width * HardCodes.TileSize,
+                                                    this.Position.Height * HardCodes.TileSize);
+            spriteDestRect.Offset(spriteDestRect.Width / 2, spriteDestRect.Height / 2);
+
             spriteBatch.Draw(
                 texture,
-                new Rectangle(
-                        ((int)viewportPosition.X) * HardCodes.TileSize,
-                        ((int)viewportPosition.Y) * HardCodes.TileSize,
-                        this.Position.Width * HardCodes.TileSize,
-                        this.Position.Height * HardCodes.TileSize),
-                Color.White);
+                spriteDestRect,
+                null,
+                Color.White,
+                OrientationHelper.GetRotationAngle(FacingDirection),
+                new Vector2(HardCodes.TextureSize / 2, HardCodes.TextureSize / 2),
+                SpriteEffects.None,
+                0f);
 
             animationFrame += 1;
             animationFrame %= 30;

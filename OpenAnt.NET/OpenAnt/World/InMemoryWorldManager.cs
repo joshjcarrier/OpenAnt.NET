@@ -4,6 +4,7 @@ using OpenAnt.Generator;
 namespace OpenAnt.World
 {
     using Microsoft.Xna.Framework;
+    using Helper;
 
     /// <summary>
     /// Handles transactions in the world, in-memory.
@@ -19,7 +20,44 @@ namespace OpenAnt.World
 
         public void OnNotifyWorldChangeRequested(InteractableGameEntityBase sender, Point targetLocation, object action)
         {
-            return;
+            ActionType actionType = (ActionType) action;
+
+            switch(actionType)
+            {
+                case ActionType.PrecisionMove:
+                    this.MoveEntity(sender, targetLocation, true);
+                    break;
+                case ActionType.Move:
+                    this.MoveEntity(sender, targetLocation, false);
+                    break;
+            }
+        }
+
+        private void MoveEntity(InteractableGameEntityBase entity, Point targetLocation, bool isPrecisionMove)
+        {
+            var oldPosition = entity.Position.Location;
+            var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, targetLocation);
+
+            if (isPrecisionMove)
+            {
+                if (newOrientation == entity.FacingDirection)
+                {
+                    var rect = entity.Position;
+                    rect.Location = targetLocation;
+                    entity.Position = rect;
+                }
+                else
+                {
+                    entity.FacingDirection = newOrientation;
+                }
+            }
+            else
+            {
+                var rect = entity.Position;
+                rect.Location = targetLocation;
+                entity.Position = rect;
+                entity.FacingDirection = newOrientation;
+            }
         }
     }
 }

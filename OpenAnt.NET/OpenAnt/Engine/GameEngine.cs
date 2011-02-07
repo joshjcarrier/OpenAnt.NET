@@ -90,9 +90,6 @@
             newPosition.X += deltaX;
             newPosition.Y += deltaY;
 
-            // TODO update direction facing
-            sprite.FacingDirection = OrientationHelper.GetFacingDirection(sprite.Position.Location, newPosition);
-            
             // edge of the world blocks
             if (!this.WorldManager.World.Boundary.Contains(newPosition))
             {

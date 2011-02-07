@@ -3,6 +3,12 @@
     using Microsoft.Xna.Framework;
     using World;
 
+    public enum ActionType
+    {
+        PrecisionMove,
+        Move
+    }
+
     public class InteractableGameEntityBase : GameEntityBase
     {
         private INotifyWorldChangeRequested notifyWorldChangeRequested;

@@ -15,15 +15,7 @@ namespace OpenAnt.Entity.Decorator.Interaction
 
         public override void Move(Point newPosition)
         {
-            // TODO generate events instead of actually manipulating the sprite object
-            // this.OnNotifyWorldChangeRequested(newPosition, null);
-            var oldPosition = Position.Location;
-            var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, newPosition);
-
-            var rect = Position;
-            rect.Location = newPosition;
-            Position = rect;
-            FacingDirection = newOrientation;
+            this.OnNotifyWorldChangeRequested(newPosition, ActionType.Move);
         }
     }
 }
