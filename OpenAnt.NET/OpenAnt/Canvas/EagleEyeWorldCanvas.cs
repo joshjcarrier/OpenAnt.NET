@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Canvas
+﻿using System;
+
+namespace OpenAnt.Canvas
 {
     #region using directives
     using System.Collections.Generic;
@@ -16,6 +18,7 @@
         protected ContentProvider contentProvider;
         protected Texture2D texture;
         protected Rectangle worldBoundary;
+        private readonly string buildstamp = DateTime.Today.ToString("yyyyMMdd");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EagleEyeWorldCanvas"/> class.
@@ -53,8 +56,8 @@
         /// </param>
         public void DrawSprites(SpriteBatch spriteBatch, IEnumerable<GameEntityBase> spriteData)
         {
-            spriteBatch.DrawString(this.contentProvider.GetFont(FontResource.SegoeUiMonoRegular), "TEST",
-                                   new Vector2(10, 10), Color.White); 
+            spriteBatch.DrawString(this.contentProvider.GetFont(FontResource.SegoeUiMonoRegular), "OpenAnt.NET build " + buildstamp, new Vector2(5, 5), Color.White); 
+
             // TODO viewport restriction optimization);)
             foreach (var sprite in spriteData)
             {
