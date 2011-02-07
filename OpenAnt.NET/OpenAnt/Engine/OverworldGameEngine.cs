@@ -1,9 +1,8 @@
-﻿using OpenAnt.Generator;
-using OpenAnt.World;
-
-namespace OpenAnt.Engine
+﻿namespace OpenAnt.Engine
 {
     using Canvas;
+    using Generator;
+    using World;
 
     /// <summary>
     /// Game processing logic in the overworld.
@@ -22,7 +21,9 @@ namespace OpenAnt.Engine
 
         public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
-            return new OverworldGameEngine(new OverworldEagleEyeWorldCanvas(contentProvider, worldManager.World.Boundary), worldManager);
+            var worldData = OverworldGenerator.Make(contentProvider, worldManager);
+            worldManager.World = worldData;
+            return new OverworldGameEngine(new OverworldEagleEyeWorldCanvas(contentProvider, worldData.Boundary), worldManager);
         }
     }
 }

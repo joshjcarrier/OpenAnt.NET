@@ -11,8 +11,9 @@
     /// </summary>
     public class GameStateMachine
     {
-        private GameEngine currentEngine;
-        private IWorldManager worldManager;
+        private int currentEngine;
+        private GameEngine[] engines;
+        // private IWorldManager worldManager;
         private int prevStateAge;
         private KeyboardState prevState;
 
@@ -25,17 +26,21 @@
         public GameStateMachine(ContentProvider contentProvider)
         {
             // TODO we'd load a save game from here possibly
+            // TODO these should really be the same world managers?
             // NOTE this is how we go between local/network
-            this.worldManager = new InMemoryWorldManager(contentProvider);
+            var overWorldManager = new InMemoryWorldManager(contentProvider);
+            var underWorldManager = new InMemoryWorldManager(contentProvider);
 
             // TODO state machine flips between engines
-            this.currentEngine = OverworldGameEngine.Create(contentProvider, this.worldManager);
+            engines = new GameEngine[2];
+            engines[0] = OverworldGameEngine.Create(contentProvider, overWorldManager);
+            engines[1] = UndergroundGameEngine.Create(contentProvider, underWorldManager);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             // gameplay
-            this.currentEngine.Draw(spriteBatch);
+            this.engines[this.currentEngine].Draw(spriteBatch);
         }
 
         private int minorTick = 0;
@@ -44,18 +49,21 @@
         {
             if (this.minorTick == 0)
             {
-                this.currentEngine.Update();
+                this.engines.ForEach(o => o.Update());
             }
             
             this.minorTick += 1;
             this.minorTick %= 30;
 
             // TODO mouse instead, combo keys? this is also really a function of the engine, right
-            var inputActionIgnored = this.ProcessKeyboardInput(keyboardState, Keys.D, () => this.currentEngine.MovePlayer(1, 0));
-            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.A, () => this.currentEngine.MovePlayer(-1, 0));
-            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.W, () => this.currentEngine.MovePlayer(0, -1));
-            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.S, () => this.currentEngine.MovePlayer(0, 1));
-            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Space, () => this.currentEngine.Interact());
+            var inputActionIgnored = this.ProcessKeyboardInput(keyboardState, Keys.D, () => this.engines[this.currentEngine].MovePlayer(1, 0));
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.A, () => this.engines[this.currentEngine].MovePlayer(-1, 0));
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.W, () => this.engines[this.currentEngine].MovePlayer(0, -1));
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.S, () => this.engines[this.currentEngine].MovePlayer(0, 1));
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Space, () => this.engines[this.currentEngine].Interact());
+
+            // TODO temporary, until engines can signal a switch-out
+            inputActionIgnored |= this.ProcessKeyboardInput(keyboardState, Keys.Q, () => { this.currentEngine += 1; this.currentEngine %= 2; }); 
             
             if(inputActionIgnored)
             {

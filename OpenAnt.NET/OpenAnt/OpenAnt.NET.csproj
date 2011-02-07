@@ -136,6 +136,7 @@
     <Compile Include="FontResource.cs" />
     <Compile Include="GameStateMachine.cs" />
     <Compile Include="Generator\OverworldGenerator.cs" />
+    <Compile Include="Generator\UndergroundGenerator.cs" />
     <Compile Include="HardCodes.cs" />
     <Compile Include="Helper\OrientationHelper.cs" />
     <Compile Include="Orientation.cs" />

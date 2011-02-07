@@ -3,7 +3,6 @@
     using System.Linq;
     using Microsoft.Xna.Framework;
     using Entity;
-    using Generator;
     using Helper;
 
     /// <summary>
@@ -13,7 +12,7 @@
     {
         public InMemoryWorldManager(ContentProvider contentProvider)
         {
-            this.World = OverworldGenerator.Make(contentProvider, this); // TODO this would be loaded from somewhere
+            // TODO fix dependency this.World = OverworldGenerator.Make(contentProvider, this); // TODO this would be loaded from somewhere
         }
 
         public WorldData World { get; set; }

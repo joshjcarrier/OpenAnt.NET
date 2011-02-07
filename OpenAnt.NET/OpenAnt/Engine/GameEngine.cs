@@ -23,9 +23,9 @@
         public void Draw(SpriteBatch spriteBatch)
         {
             //ViewportHelper.CurrentDevice.Viewport = ViewportHelper.DefaultViewport;
-            this.canvas.DrawUnderlay(spriteBatch);
             spriteBatch.Begin();
             ViewportHelper.CurrentDevice.Viewport = ViewportHelper.SpriteViewport;
+            this.canvas.DrawUnderlay(spriteBatch);
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SurfaceData);
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.SpriteData);
             this.canvas.DrawSprites(spriteBatch, this.WorldManager.World.CpuSpriteData);

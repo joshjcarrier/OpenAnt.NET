@@ -1,9 +1,8 @@
-﻿using OpenAnt.World;
-
-namespace OpenAnt.Engine
+﻿namespace OpenAnt.Engine
 {
     using Canvas;
     using Generator;
+    using World;
 
     /// <summary>
     /// Game processing when underground.
@@ -25,8 +24,8 @@ namespace OpenAnt.Engine
 
         public static GameEngine Create(ContentProvider contentProvider, IWorldManager worldManager)
         {
-            // TODO this should be underworld
-            var worldData = OverworldGenerator.Make(contentProvider, null); // TODO replace worlddata with wold manager and put in here
+            var worldData = UndergroundGenerator.Make(contentProvider, worldManager);
+            worldManager.World = worldData;
             return new UndergroundGameEngine(new UndergroundEagleEyeWorldCanvas(contentProvider, worldData.Boundary), worldManager);
         }
     }

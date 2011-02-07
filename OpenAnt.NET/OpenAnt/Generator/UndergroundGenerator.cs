@@ -1,14 +1,13 @@
 ﻿namespace OpenAnt.Generator
 {
-    using System;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
+    using Engine;
     using Entity;
     using Entity.Sprite;
-    using Engine;
     using World;
 
-    public static class OverworldGenerator
+    public static class UndergroundGenerator
     {
         public static WorldData Make(ContentProvider contentProvider, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
@@ -18,7 +17,7 @@
 
             // depth
             // NOTE underworld generator doesn't generate top 2 rows
-            for (var i = boundary.Top; i < boundary.Height; i++)
+            for (var i = boundary.Top + 2; i < boundary.Height; i++)
             {
                 // breadth
                 for (var j = boundary.Left; j < boundary.Width; j++)
@@ -30,22 +29,22 @@
             var Player = YellowAntEntity.Create(contentProvider, new Point(5, 1), notifyWorldChangeRequested);
 
             var SpriteData = new List<GameEntityBase>();
-            var r = new Random();
-            for (var x = 0; x < 20; x++)
-            {
-                SpriteData.Add(TerrainGenerator.MakeObstacle(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height))));
-            }
+            //var r = new Random();
+            //for (var x = 0; x < 20; x++)
+            //{
+            //    SpriteData.Add(TerrainGenerator.MakeObstacle(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height))));
+            //}
 
             var CpuSpriteData = new List<GameEntityBase>();
-            for (var x = 0; x < 10; x++)
-            {
-                var entity = AntEntity.Create(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height)), notifyWorldChangeRequested);
-                CpuSpriteData.Add(entity);
-            }
+            //for (var x = 0; x < 10; x++)
+            //{
+            //    var entity = AntEntity.Create(contentProvider, new Point(r.Next(boundary.Left, boundary.Width), r.Next(boundary.Top, boundary.Height)), notifyWorldChangeRequested);
+            //    CpuSpriteData.Add(entity);
+            //}
 
             SpriteData.Add(Player);
 
-            SpriteData.Add(FoodEntity.Create(contentProvider, new Point(10, 10)));
+            //SpriteData.Add(FoodEntity.Create(contentProvider, new Point(10, 10)));
             return new WorldData(SurfaceData, SpriteData, CpuSpriteData, Player, boundary);
         }
     }
