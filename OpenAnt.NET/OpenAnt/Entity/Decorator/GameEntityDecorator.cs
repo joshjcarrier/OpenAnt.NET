@@ -88,9 +88,9 @@
             this.entity.Move(newPosition);
         }
 
-        public override void InteractWith(GameEntityBase interactingEntity)
+        public override void InteractWith(Point targetPoint)
         {
-            this.entity.InteractWith(interactingEntity);
+            this.entity.InteractWith(targetPoint);
         }
 
         #endregion

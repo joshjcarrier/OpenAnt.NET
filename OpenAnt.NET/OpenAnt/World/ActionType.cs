@@ -3,6 +3,7 @@
     public enum ActionType
     {
         PrecisionMove,
-        Move
+        Move,
+        Interact
     }
 }

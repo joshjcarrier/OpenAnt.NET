@@ -124,8 +124,8 @@
     <Compile Include="Entity\Decorator\Render\AnimationRenderEntity.cs" />
     <Compile Include="Entity\Decorator\Render\StaticRenderEntity.cs" />
     <Compile Include="Entity\EntityType.cs" />
-    <Compile Include="Entity\GameEntityBase.cs" />
     <Compile Include="Entity\Decorator\Intelligence\WorkerAntIntelligence.cs" />
+    <Compile Include="Entity\GameEntityBase.cs" />
     <Compile Include="Entity\Sprite\AntEntity.cs" />
     <Compile Include="Entity\Sprite\FoodEntity.cs" />
     <Compile Include="Entity\Terrain\TerrainEntity.cs" />

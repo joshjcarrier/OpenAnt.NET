@@ -1,5 +1,8 @@
 ﻿namespace OpenAnt.Entity.Decorator.Interaction
 {
+    using Microsoft.Xna.Framework;
+    using World;
+
     /// <summary>
     /// How to respond when an entity "interacts" with it.
     /// </summary>
@@ -9,9 +12,10 @@
         {
         }
 
-        public override void InteractWith(GameEntityBase interactingEntity)
+        public override void InteractWith(Point targetPoint)
         {
-            this.HoldingEntity = interactingEntity;
+            //this.HoldingEntity = interactingEntity;
+            this.OnNotifyWorldChangeRequested(targetPoint, ActionType.Interact);
         }
     }
 }

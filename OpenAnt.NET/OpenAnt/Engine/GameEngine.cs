@@ -40,38 +40,11 @@
 
         public void Interact()
         {
-            // TODO this shouldn't be here, since cpu-ants can't access stuff here...
             var newPosition = this.WorldManager.World.Player.Position.Location;
             var delta = OrientationHelper.GetAdjacentPointDelta(this.WorldManager.World.Player.FacingDirection);
             newPosition.X += delta.X;
             newPosition.Y += delta.Y;
-
-            var collisionTile = this.WorldManager.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(newPosition)); // FIXME SingleOrDefault/FirstOrDefault = bad
-            if (collisionTile != null)
-            {
-                if (this.WorldManager.World.Player.HoldingEntity == null)
-                {
-                    this.WorldManager.World.Player.InteractWith(collisionTile);
-
-                    // NOTE this is really an underworld thing...
-                    this.WorldManager.World.SpriteData.Remove(collisionTile);
-                }
-            }
-            else
-            {
-                // put the thing down
-                if (this.WorldManager.World.Player.HoldingEntity != null)
-                {
-                    var placedEntity = this.WorldManager.World.Player.HoldingEntity;
-                    var pos = placedEntity.Position;
-                    pos.Location = newPosition;
-                    placedEntity.Position = pos;
-
-                    // fix the world map
-                    this.WorldManager.World.SpriteData.Add(placedEntity);
-                    this.WorldManager.World.Player.HoldingEntity = null;
-                }
-            }
+            this.WorldManager.World.Player.InteractWith(newPosition);
         }
 
         public void Update()

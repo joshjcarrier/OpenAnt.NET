@@ -96,7 +96,7 @@
             throw new InvalidOperationException("Decorator not defined.");
         }
 
-        public virtual void InteractWith(GameEntityBase interactingEntity)
+        public virtual void InteractWith(Point targetPoint)
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
