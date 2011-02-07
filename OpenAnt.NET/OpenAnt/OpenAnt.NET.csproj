@@ -138,6 +138,7 @@
     <Compile Include="HardCodes.cs" />
     <Compile Include="Helper\OrientationHelper.cs" />
     <Compile Include="Orientation.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="WorldData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

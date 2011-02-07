@@ -1,11 +1,10 @@
-﻿using System.Linq;
-
-namespace OpenAnt.World
+﻿namespace OpenAnt.World
 {
+    using System.Linq;
     using Microsoft.Xna.Framework;
     using Entity;
-    using Helper;
     using Generator;
+    using Helper;
 
     /// <summary>
     /// Handles transactions in the world, in-memory.
@@ -58,7 +57,6 @@ namespace OpenAnt.World
             {
                 if (sender.HoldingEntity == null)
                 {
-                    //entity.InteractWith(collisionTile);
                     sender.HoldingEntity = collisionTile;
 
                     // NOTE this is really an underworld thing...
@@ -86,26 +84,49 @@ namespace OpenAnt.World
         {
             var oldPosition = entity.Position.Location;
             var newOrientation = OrientationHelper.GetFacingDirection(oldPosition, targetLocation);
-
-            if (isPrecisionMove)
+            
+            // face the direction
+            var oldOrientation = entity.FacingDirection;
+            entity.FacingDirection = newOrientation;
+            
+            // edge of the world blocks
+            if (!this.World.Boundary.Contains(targetLocation))
             {
-                if (newOrientation == entity.FacingDirection)
+                return;
+            }
+
+            // TODO uncrashable collision detection and decision
+            bool doMove = true;
+            var collisionTile = this.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(targetLocation)); // FIXME SingleOrDefault/FirstOrDefault = bad
+            if (collisionTile != null)
+            {
+                doMove = collisionTile.CollideOn(entity);
+
+                // NOTE this is what digging does - really an underworld interaction...
+                // SurfaceData.Remove(collisionTile);
+            }
+
+            // move the sprite, performing neighbour tile updates as necessary
+            if (doMove)
+            {
+                // TODO update neighboring tiles?
+                if (isPrecisionMove)
+                {
+                    if (newOrientation == oldOrientation)
+                    {
+                        var rect = entity.Position;
+                        rect.Location = targetLocation;
+                        entity.Position = rect;
+                        entity.Health -= 1;
+                    }
+                }
+                else
                 {
                     var rect = entity.Position;
                     rect.Location = targetLocation;
                     entity.Position = rect;
+                    entity.Health -= 1;
                 }
-                else
-                {
-                    entity.FacingDirection = newOrientation;
-                }
-            }
-            else
-            {
-                var rect = entity.Position;
-                rect.Location = targetLocation;
-                entity.Position = rect;
-                entity.FacingDirection = newOrientation;
             }
         }
     }

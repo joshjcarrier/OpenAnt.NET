@@ -26,7 +26,7 @@
         /// </returns>
         public static GameEntityBase CreateSurface(Texture2D texture, Point position)
         {
-            var baseEntity = new GameEntityBase(EntityType.TerrainSurface, new Rectangle(position.X, position.Y, 1, 1), null);
+            var baseEntity = new GameEntityBase(EntityType.TerrainSurface, new Rectangle(position.X, position.Y, 1, 1));
             baseEntity = new StaticRenderEntity(baseEntity, texture);
             return new TransparentCollisionEntity(baseEntity);
         }
@@ -48,7 +48,7 @@
         /// </returns>
         public static GameEntityBase CreateObstacle(Texture2D texture, Point position, int size)
         {
-            var baseEntity = new GameEntityBase(EntityType.TerrainObstacle, new Rectangle(position.X, position.Y, size, size), null);
+            var baseEntity = new GameEntityBase(EntityType.TerrainObstacle, new Rectangle(position.X, position.Y, size, size));
             baseEntity = new StaticRenderEntity(baseEntity, texture);
             return new CollisionBarrierEntity(baseEntity);
         }
