@@ -2,6 +2,7 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using World;
 
     /// <summary>
     /// Allows decoration of the game entity.
@@ -19,15 +20,27 @@
         /// <param name="entity">
         /// The entity being decorated.
         /// </param>
-        protected GameEntityDecorator(GameEntityBase entity) : base(entity.Position)
+        protected GameEntityDecorator(GameEntityBase entity) 
+            : base(entity.EntityType, entity.Position, entity.NotifyWorldChangeRequested)
         {
             this.entity = entity;
+        }
+
+        public override EntityType EntityType
+        {
+            get { return this.entity.EntityType; }
         }
 
         public override Orientation FacingDirection
         {
             get { return this.entity.FacingDirection; }
             set { this.entity.FacingDirection = value; }
+        }
+
+        internal override INotifyWorldChangeRequested NotifyWorldChangeRequested
+        {
+            get { return this.entity.NotifyWorldChangeRequested; }
+            set { this.entity.NotifyWorldChangeRequested = value; }
         }
 
         /// <summary>
