@@ -13,6 +13,7 @@
     /// </summary>
     public class GameEntityBase
     {
+        private EntityType entityType;
         private Rectangle position;
         private INotifyWorldChangeRequested notifyWorldChangeRequested;
 
@@ -22,11 +23,14 @@
         /// <param name="position">
         /// The entity spatial position.
         /// </param>
-        public GameEntityBase(Rectangle position, INotifyWorldChangeRequested notifyWorldChangeRequested)
+        public GameEntityBase(EntityType type, Rectangle position, INotifyWorldChangeRequested notifyWorldChangeRequested)
         {
+            this.entityType = type;
             this.position = position;
             this.notifyWorldChangeRequested = notifyWorldChangeRequested;
         }
+
+        public virtual EntityType EntityType { get { return this.entityType; } }
 
         public virtual Orientation FacingDirection { get; set; }
 

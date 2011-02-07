@@ -20,9 +20,15 @@
         /// <param name="entity">
         /// The entity being decorated.
         /// </param>
-        protected GameEntityDecorator(GameEntityBase entity) : base(entity.Position, entity.NotifyWorldChangeRequested)
+        protected GameEntityDecorator(GameEntityBase entity) 
+            : base(entity.EntityType, entity.Position, entity.NotifyWorldChangeRequested)
         {
             this.entity = entity;
+        }
+
+        public override EntityType EntityType
+        {
+            get { return this.entity.EntityType; }
         }
 
         public override Orientation FacingDirection

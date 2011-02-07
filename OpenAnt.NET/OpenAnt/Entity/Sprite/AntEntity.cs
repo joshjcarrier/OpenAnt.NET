@@ -17,7 +17,7 @@
             animation[1] = contentProvider.GetSpriteTexture(SpriteResource.YellowAntWalk2);
 
             // apply interactive elements first
-            var baseEntity = new GameEntityBase(new Rectangle(position.X, position.Y, 1, 1), notifyWorldChangeRequested);
+            var baseEntity = new GameEntityBase(EntityType.Ant, new Rectangle(position.X, position.Y, 1, 1), notifyWorldChangeRequested);
             baseEntity = new MovingEntity(baseEntity);
             baseEntity = new AnimationRenderEntity(baseEntity, animation);
             baseEntity = new CollisionBarrierEntity(baseEntity);

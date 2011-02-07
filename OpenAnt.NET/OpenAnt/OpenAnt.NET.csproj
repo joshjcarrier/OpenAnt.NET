@@ -123,6 +123,7 @@
     <Compile Include="Entity\Decorator\Interaction\PrecisionMovingEntity.cs" />
     <Compile Include="Entity\Decorator\Render\AnimationRenderEntity.cs" />
     <Compile Include="Entity\Decorator\Render\StaticRenderEntity.cs" />
+    <Compile Include="Entity\EntityType.cs" />
     <Compile Include="Entity\GameEntityBase.cs" />
     <Compile Include="Entity\Decorator\Intelligence\WorkerAntIntelligence.cs" />
     <Compile Include="Entity\Sprite\AntEntity.cs" />
