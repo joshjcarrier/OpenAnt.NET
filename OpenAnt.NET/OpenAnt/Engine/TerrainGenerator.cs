@@ -101,5 +101,24 @@
 
             return TerrainEntity.CreateObstacle(texture, position, size);
         }
+
+        /// <summary>
+        /// Generates an underground terrain obstacle.
+        /// </summary>
+        /// <param name="contentProvider">
+        /// The content provider.
+        /// </param>
+        /// <param name="position">
+        /// The position.
+        /// </param>
+        /// <returns>
+        /// An underground tile.
+        /// </returns>
+        public static GameEntityBase MakeUnderground(ContentProvider contentProvider, Point position)
+        {
+            var texture = contentProvider.GetTerrainTexture(null);
+            
+            return TerrainEntity.CreateSoil(texture, position);
+        }
     }
 }

@@ -35,7 +35,6 @@
         {
             // TODO drawing something meaningful
             // spriteBatch.Draw(contentProvider.GetSpriteTexture(SpriteResource.Seed1), new Rectangle(0,0,50,50), Color.White);
-            spriteBatch.Draw(this.contentProvider.GetTerrainTexture(null), new Rectangle(0, 0, 100, 800), Color.Silver);
         }
 
         /// <summary>

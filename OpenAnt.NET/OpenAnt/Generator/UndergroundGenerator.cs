@@ -37,7 +37,7 @@
                 // breadth
                 for (var j = boundary.Left; j < boundary.Width; j++)
                 {
-                    surfaceData.Add(TerrainGenerator.MakeSurface(contentProvider, new Point(j, i)));
+                    surfaceData.Add(TerrainGenerator.MakeUnderground(contentProvider, new Point(j, i)));
                 }
             }
 

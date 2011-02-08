@@ -53,6 +53,9 @@
         /// <param name="action">
         /// The action.
         /// </param>
+        /// <remarks>
+        /// TODO Pull this out into the game engine; leave world manager for pure sprite transactions.
+        /// </remarks>
         public void OnNotifyWorldChangeRequested(GameEntityBase sender, Point targetLocation, object action)
         {
             var actionType = (ActionType)action;

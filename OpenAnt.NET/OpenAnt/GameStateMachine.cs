@@ -1,4 +1,6 @@
-﻿namespace OpenAnt
+﻿using OpenAnt.Canvas;
+
+namespace OpenAnt
 {
     using System;
     using Microsoft.Xna.Framework.Graphics;
@@ -51,6 +53,7 @@
             var underWorldManager = new InMemoryWorldManager(contentProvider);
 
             // TODO state machine flips between engines
+            // TODO subscribe to engine change events
             this.engines = new GameEngine[2];
             this.engines[0] = OverworldGameEngine.Create(contentProvider, overWorldManager);
             this.engines[1] = UndergroundGameEngine.Create(contentProvider, underWorldManager);
@@ -65,7 +68,15 @@
         public void Draw(SpriteBatch spriteBatch)
         {
             // gameplay
+            spriteBatch.Begin();
+            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.SpriteViewport;
             this.engines[this.currentEngine].Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.MenuViewport;
+            this.DrawMenuOverlay(spriteBatch);
+            spriteBatch.End();
         }
 
         /// <summary>
@@ -109,6 +120,17 @@
             {
                 this.prevState = keyboardState;   
             }
+        }
+
+                /// <summary>
+        /// Draw the menu overlay.
+        /// </summary>
+        /// <param name="spriteBatch">
+        /// The sprite batch.
+        /// </param>
+        private void DrawMenuOverlay(SpriteBatch spriteBatch)
+        {
+            // spriteBatch.Draw(this.contentProvider.GetTerrainTexture(null), new Rectangle(0, 0, 100, 800), Color.Silver);
         }
 
         /// <summary>

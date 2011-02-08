@@ -1,4 +1,6 @@
-﻿namespace OpenAnt.Engine
+﻿using Microsoft.Xna.Framework;
+
+namespace OpenAnt.Engine
 {
     using System.Linq;
     using Microsoft.Xna.Framework.Graphics;
@@ -47,18 +49,11 @@
         /// </param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.SpriteViewport;
             this.canvas.DrawUnderlay(spriteBatch);
             this.canvas.DrawSprites(spriteBatch, this.worldManager.World.SurfaceData);
             this.canvas.DrawSprites(spriteBatch, this.worldManager.World.SpriteData);
             this.canvas.DrawSprites(spriteBatch, this.worldManager.World.CpuSpriteData);
-            spriteBatch.End();
-
-            spriteBatch.Begin();
-            ViewportHelper.CurrentDevice.Viewport = ViewportHelper.MenuViewport;
             this.canvas.DrawOverlay(spriteBatch);
-            spriteBatch.End();
         }
 
         /// <summary>

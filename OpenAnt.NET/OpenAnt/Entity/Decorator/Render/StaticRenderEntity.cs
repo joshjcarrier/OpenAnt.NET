@@ -14,6 +14,11 @@
         private readonly Texture2D texture;
 
         /// <summary>
+        /// Tint to apply to texture.
+        /// </summary>
+        private readonly Color tint;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="StaticRenderEntity"/> class.
         /// </summary>
         /// <param name="entity">
@@ -22,9 +27,28 @@
         /// <param name="texture">
         /// The texture.
         /// </param>
-        public StaticRenderEntity(GameEntityBase entity, Texture2D texture) : base(entity)
+        /// <param name="tint">
+        /// The tint to apply to the texture.
+        /// </param>
+        public StaticRenderEntity(GameEntityBase entity, Texture2D texture, Color tint)
+            : base(entity)
         {
             this.texture = texture;
+            this.tint = tint;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StaticRenderEntity"/> class.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity to decorate.
+        /// </param>
+        /// <param name="texture">
+        /// The texture.
+        /// </param>
+        public StaticRenderEntity(GameEntityBase entity, Texture2D texture)
+            : this(entity, texture, Color.White)
+        {
         }
 
         /// <summary>
@@ -43,7 +67,7 @@
                 viewportPosition.Y * HardCodes.TileSize,
                 this.Position.Width * HardCodes.TileSize,
                 this.Position.Height * HardCodes.TileSize);
-            spriteBatch.Draw(this.texture, textureCoordinates, Color.White);
+            spriteBatch.Draw(this.texture, textureCoordinates, this.tint);
         }
     }
 }

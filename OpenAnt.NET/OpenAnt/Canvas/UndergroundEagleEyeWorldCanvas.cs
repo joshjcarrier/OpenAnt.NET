@@ -21,6 +21,7 @@
         /// </param>
         public UndergroundEagleEyeWorldCanvas(ContentProvider contentProvider, Rectangle worldBoundary) : base(contentProvider, worldBoundary)
         {
+            this.texture = contentProvider.GetTerrainTexture(null);
         }
 
         /// <summary>
@@ -31,7 +32,7 @@
         /// </param>
         public override void DrawOverlay(SpriteBatch spriteBatch)
         {
-            // spriteBatch.Draw(texture, new Rectangle(0, 40 - this.Viewport.Y * 20, 800, 4), Color.Green);
+            spriteBatch.Draw(texture, new Rectangle(0, 40 - this.Viewport.Y * 20, 800, 4), Color.Green);
         }
 
         /// <summary>
@@ -42,8 +43,8 @@
         /// </param>
         public override void DrawUnderlay(SpriteBatch spriteBatch)
         {
-            // spriteBatch.Draw(texture, new Rectangle(0, 40 - this.Viewport.Y * 20, 800, 260), Color.SandyBrown);
-            // spriteBatch.Draw(texture, new Rectangle(0, 300 - this.Viewport.Y * 20, 800, 500), Color.RosyBrown);
+            spriteBatch.Draw(texture, new Rectangle(0, 40 - this.Viewport.Y * 20, 800, 260), Color.SandyBrown);
+            spriteBatch.Draw(texture, new Rectangle(0, 300 - this.Viewport.Y * 20, 800, 500), Color.RosyBrown);
         }
     }
 }

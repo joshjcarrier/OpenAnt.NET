@@ -18,7 +18,7 @@
         protected Texture2D texture;
         protected Rectangle worldBoundary;
         private readonly string buildstamp = DateTime.Today.ToString("yyyyMMdd");
-        private Rectangle Viewport;
+        protected Rectangle Viewport;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EagleEyeWorldCanvas"/> class.
