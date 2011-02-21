@@ -107,14 +107,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas\Viewport.cs" />
-    <Compile Include="Canvas\EagleEyeWorldCanvas.cs" />
-    <Compile Include="Canvas\OverworldEagleEyeWorldCanvas.cs" />
-    <Compile Include="Canvas\UndergroundEagleEyeWorldCanvas.cs" />
+    <Compile Include="Data\WorldData.cs" />
+    <Compile Include="Extensions\ServiceProviderExtensions.cs" />
+    <Compile Include="Screen\EagleEyeScreenBase.cs" />
     <Compile Include="ContentProvider.cs" />
-    <Compile Include="Engine\OverworldGameEngine.cs" />
-    <Compile Include="Engine\TerrainGenerator.cs" />
-    <Compile Include="Engine\UndergroundGameEngine.cs" />
+    <Compile Include="Screen\IScreen.cs" />
+    <Compile Include="Screen\OverworldScreen.cs" />
+    <Compile Include="Generator\TerrainGenerator.cs" />
+    <Compile Include="Screen\UndergroundScreen.cs" />
     <Compile Include="Entity\Decorator\Collision\CollisionBarrierEntity.cs" />
     <Compile Include="Entity\Decorator\Collision\CollisionBaseEntity.cs" />
     <Compile Include="Entity\Decorator\Collision\TransparentCollisionEntity.cs" />
@@ -131,28 +131,29 @@
     <Compile Include="Entity\Sprite\FoodEntity.cs" />
     <Compile Include="Entity\Terrain\TerrainEntity.cs" />
     <Compile Include="Entity\Sprite\YellowAntEntity.cs" />
-    <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="FontResource.cs" />
-    <Compile Include="GameStateMachine.cs" />
+    <Compile Include="Screen\ScreenBase.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Constants\FontResource.cs" />
+    <Compile Include="Screen\ScreenControlHost.cs" />
     <Compile Include="Generator\OverworldGenerator.cs" />
     <Compile Include="Generator\UndergroundGenerator.cs" />
-    <Compile Include="HardCodes.cs" />
+    <Compile Include="Constants\HardCodes.cs" />
     <Compile Include="Helper\OrientationHelper.cs" />
-    <Compile Include="Orientation.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="WorldData.cs" />
+    <Compile Include="Constants\Orientation.cs" />
+    <Compile Include="Constants\Player.cs" />
+    <Compile Include="Services\EntityFactory.cs" />
+    <Compile Include="Services\ServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="OpenAnt.cs" />
-    <Compile Include="Screen\GameCanvasScreen.cs" />
     <Compile Include="Screen\MainMenuScreen.cs" />
-    <Compile Include="SpriteResource.cs" />
-    <Compile Include="TerrainResource.cs" />
-    <Compile Include="World\ActionType.cs" />
-    <Compile Include="World\INotifyWorldChangeRequested.cs" />
-    <Compile Include="World\InMemoryWorldManager.cs" />
-    <Compile Include="World\IWorldManager.cs" />
+    <Compile Include="Constants\SpriteResource.cs" />
+    <Compile Include="Constants\TerrainResource.cs" />
+    <Compile Include="DataStore\InMemoryDataStore.cs" />
+    <Compile Include="DataStore\IWorldDataStore.cs" />
+    <Compile Include="Constants\ActionType.cs" />
+    <Compile Include="Engine\WorldManager.cs" />
+    <Compile Include="Engine\IWorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

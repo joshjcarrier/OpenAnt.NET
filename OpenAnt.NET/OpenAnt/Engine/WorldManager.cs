@@ -1,30 +1,101 @@
-﻿namespace OpenAnt.World
+﻿namespace OpenAnt.Engine
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xna.Framework;
+    using Data;
     using Entity;
+    using Generator;
     using Helper;
+    using World;
 
     /// <summary>
     /// Handles transactions in the world, in-memory.
     /// </summary>
-    public class InMemoryWorldManager : IWorldManager
+    public class WorldManager : IWorldManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InMemoryWorldManager"/> class.
+        /// The surface world data.
         /// </summary>
-        /// <param name="contentProvider">
-        /// The content provider.
-        /// </param>
-        public InMemoryWorldManager(ContentProvider contentProvider)
+        private readonly IList<WorldData> surfaceWorld;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorldManager"/> class.
+        /// </summary>
+        public WorldManager()
         {
             // TODO fix dependency this.World = OverworldGenerator.Make(contentProvider, this); // TODO this would be loaded from somewhere
+            this.surfaceWorld = OverworldGenerator.Make().ToList();
+            this.Player = new WorldData { Position = new Point(0, 0), Type = EntityType.Ant };
+            this.surfaceWorld.Add(this.Player);
         }
 
         /// <summary>
-        /// Gets or sets World.
+        /// Gets SurfaceWorld data for the current game.
         /// </summary>
-        public WorldData World { get; set; }
+        public IEnumerable<WorldData> SurfaceWorld
+        {
+            get { return this.surfaceWorld; }
+        }
+
+        /// <summary>
+        /// Gets Player.
+        /// </summary>
+        /// <remarks>
+        /// NOTE temporary.
+        /// </remarks>
+        public WorldData Player { get; private set; }
+
+        /// <summary>
+        /// Updates the world manager.
+        /// </summary>
+        public void Update()
+        {
+            // TODO run through game logic, AI here
+            // TODO this goes to the world manager
+            // this.worldManager.World.CpuSpriteData.ForEach(o => o.UpdateAwareness());
+
+            // calculate and update statistics to be displayed on canvas
+            // var yellowAntHealth = this.worldManager.World.Player.Health;
+            // var blackColonyHealth = this.worldManager.World.SpriteData.Where(o => o.Allegiance == Player.Black).Average(o => o.Health);
+
+            // var redColonyHealth = this.WorldManager.World.SpriteData.Where(o => o.Allegiance == Player.Red).Average(o => o.Health);
+        }
+
+        /// <summary>
+        /// Process to move the player.
+        /// </summary>
+        /// <param name="deltaX">
+        /// The delta x.
+        /// </param>
+        /// <param name="deltaY">
+        /// The delta y.
+        /// </param>
+        /// <remarks>
+        /// TODO needs to support player index.
+        /// </remarks>
+        public void PlayerMoveRequest(int deltaX, int deltaY)
+        {
+            var newPosition = this.Player.Position;
+            newPosition.X += deltaX;
+            newPosition.Y += deltaY;
+            
+            // TODO should allow some sort of decorated move logic
+            this.Player.Position = newPosition;
+            //// this.Player.Move(newPosition);
+        }
+
+        /// <summary>
+        /// Performs a player interaction.
+        /// </summary>
+        public void Interact()
+        {
+            ////var newPosition = this.Player.Position;
+            ////var delta = OrientationHelper.GetAdjacentPointDelta(this.Player.FacingDirection);
+            ////newPosition.X += delta.X;
+            ////newPosition.Y += delta.Y;
+            //// this.Player.InteractWith(newPosition);
+        }
 
         /// <summary>
         /// Checks for collisions at the given point in the world.
@@ -38,7 +109,7 @@
         public GameEntityBase GetEntityAt(Point location)
         {
             // TODO is hit test collision check necessary?
-            return this.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(location)); // FIXME SingleOrDefault/FirstOrDefault = bad
+            return null; // this.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(location)); // FIXME SingleOrDefault/FirstOrDefault = bad
         }
 
         /// <summary>
@@ -53,9 +124,6 @@
         /// <param name="action">
         /// The action.
         /// </param>
-        /// <remarks>
-        /// TODO Pull this out into the game engine; leave world manager for pure sprite transactions.
-        /// </remarks>
         public void OnNotifyWorldChangeRequested(GameEntityBase sender, Point targetLocation, object action)
         {
             var actionType = (ActionType)action;
@@ -101,7 +169,7 @@
                     sender.HoldingEntity = collisionTile;
 
                     // NOTE this is really an underworld thing...
-                    this.World.SpriteData.Remove(collisionTile);
+                    // this.SpriteData.Remove(collisionTile);
                 }
             }
             else
@@ -115,7 +183,7 @@
                     placedEntity.Position = pos;
 
                     // fix the world map
-                    this.World.SpriteData.Add(placedEntity);
+                    // this.SpriteData.Add(placedEntity);
                     sender.HoldingEntity = null;
                 }
             }
@@ -143,14 +211,15 @@
             entity.FacingDirection = newOrientation;
             
             // edge of the world blocks
-            if (!this.World.Boundary.Contains(targetLocation))
-            {
-                return;
-            }
+            // if (!this.Boundary.Contains(targetLocation))
+            // {
+            //    return;
+            // }
 
             // TODO uncrashable collision detection and decision
             var doMove = true;
-            var collisionTile = this.World.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(targetLocation)); // FIXME SingleOrDefault/FirstOrDefault = bad
+            /*
+            var collisionTile = this.SpriteData.FirstOrDefault(w => w.IsHitTestCollision(targetLocation)); // FIXME SingleOrDefault/FirstOrDefault = bad
             if (collisionTile != null)
             {
                 doMove = collisionTile.CollideOn(entity);
@@ -158,6 +227,7 @@
                 // NOTE this is what digging does - really an underworld interaction...
                 // SurfaceData.Remove(collisionTile);
             }
+             * */
 
             // move the sprite, performing neighbour tile updates as necessary
             if (doMove)

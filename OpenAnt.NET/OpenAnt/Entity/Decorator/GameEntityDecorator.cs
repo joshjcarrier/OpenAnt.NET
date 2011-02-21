@@ -3,7 +3,6 @@
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using World;
 
     /// <summary>
     /// Allows decoration of the game entity.
@@ -22,7 +21,7 @@
         /// The entity being decorated.
         /// </param>
         protected GameEntityDecorator(GameEntityBase entity) 
-            : base(entity.EntityType, entity.Position, entity.Allegiance, entity.NotifyWorldChangeRequested)
+            : base(entity.EntityType, entity.Position, entity.Allegiance)
         {
             this.entity = entity;
         }
@@ -79,15 +78,6 @@
         {
             get { return this.entity.HoldingEntity; }
             set { this.entity.HoldingEntity = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets NotifyWorldChangeRequested.
-        /// </summary>
-        internal override INotifyWorldChangeRequested NotifyWorldChangeRequested
-        {
-            get { return this.entity.NotifyWorldChangeRequested; }
-            set { this.entity.NotifyWorldChangeRequested = value; }
         }
 
         #endregion

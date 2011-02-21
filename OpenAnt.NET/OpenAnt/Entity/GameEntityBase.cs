@@ -4,7 +4,6 @@
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using World;
 
     #endregion
 
@@ -34,11 +33,6 @@
         private Rectangle position;
 
         /// <summary>
-        /// The notification change request service.
-        /// </summary>
-        private INotifyWorldChangeRequested notifyWorldChangeRequested;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="GameEntityBase"/> class.
         /// </summary>
         /// <param name="type">
@@ -47,7 +41,7 @@
         /// <param name="position">
         /// The entity spatial position.
         /// </param>
-        public GameEntityBase(EntityType type, Rectangle position) : this(type, position, Player.Gaia, null)
+        public GameEntityBase(EntityType type, Rectangle position) : this(type, position, Player.Gaia)
         {
         }
 
@@ -63,15 +57,11 @@
         /// <param name="allegiance">
         /// The allegiance.
         /// </param>
-        /// <param name="notifyWorldChangeRequested">
-        /// The notify world change requested.
-        /// </param>
-        public GameEntityBase(EntityType type, Rectangle position, Player allegiance, INotifyWorldChangeRequested notifyWorldChangeRequested)
+        public GameEntityBase(EntityType type, Rectangle position, Player allegiance)
         {
             this.allegiance = allegiance;
             this.entityType = type;
             this.health = 1000;
-            this.notifyWorldChangeRequested = notifyWorldChangeRequested;
             this.position = position;
         }
 
@@ -119,15 +109,7 @@
         /// Gets or sets HoldingEntity.
         /// </summary>
         public virtual GameEntityBase HoldingEntity { get; set; }
-
-        /// <summary>
-        /// Gets or sets NotifyWorldChangeRequested.
-        /// </summary>
-        internal virtual INotifyWorldChangeRequested NotifyWorldChangeRequested
-        {
-            get { return this.notifyWorldChangeRequested; }
-            set { this.notifyWorldChangeRequested = value; }
-        }
+        
         #endregion
 
         #region Rendering Decorations
@@ -236,24 +218,6 @@
         {
             throw new InvalidOperationException("Decorator not defined.");
         }
-        #endregion
-
-        #region World Change Request
-
-        /// <summary>
-        /// Allows world changes to be requested.
-        /// </summary>
-        /// <param name="targetLocation">
-        /// The target location.
-        /// </param>
-        /// <param name="action">
-        /// The action.
-        /// </param>
-        protected void OnNotifyWorldChangeRequested(Point targetLocation, object action)
-        {
-            this.NotifyWorldChangeRequested.OnNotifyWorldChangeRequested(this, targetLocation, action);
-        }
-
-        #endregion
+        #endregion      
     }
 }

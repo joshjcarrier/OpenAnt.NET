@@ -1,7 +1,6 @@
 ﻿namespace OpenAnt.Entity.Decorator.Interaction
 {
     using Microsoft.Xna.Framework;
-    using World;
 
     /// <summary>
     /// Requires the entity to be facing the direction it's moving first.
@@ -26,7 +25,7 @@
         /// </param>
         public override void Move(Point newPosition)
         {
-            OnNotifyWorldChangeRequested(newPosition, ActionType.PrecisionMove);
+            // OnNotifyWorldChangeRequested(newPosition, ActionType.PrecisionMove);
         }
     }
 }

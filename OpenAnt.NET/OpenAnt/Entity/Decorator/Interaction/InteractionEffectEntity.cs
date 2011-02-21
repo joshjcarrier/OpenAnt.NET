@@ -1,7 +1,6 @@
 ﻿namespace OpenAnt.Entity.Decorator.Interaction
 {
     using Microsoft.Xna.Framework;
-    using World;
 
     /// <summary>
     /// How to respond when an entity "interacts" with it.
@@ -26,7 +25,7 @@
         /// </param>
         public override void InteractWith(Point targetPoint)
         {
-            this.OnNotifyWorldChangeRequested(targetPoint, ActionType.Interact);
+            // this.OnNotifyWorldChangeRequested(targetPoint, ActionType.Interact);
         }
     }
 }

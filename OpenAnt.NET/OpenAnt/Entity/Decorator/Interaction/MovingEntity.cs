@@ -1,7 +1,6 @@
 ﻿namespace OpenAnt.Entity.Decorator.Interaction
 {
     using Microsoft.Xna.Framework;
-    using World;
 
     /// <summary>
     /// An entity capable of having it's position changed in the world.
@@ -26,7 +25,7 @@
         /// </param>
         public override void Move(Point newPosition)
         {
-            this.OnNotifyWorldChangeRequested(newPosition, ActionType.Move);
+            //// this.OnNotifyWorldChangeRequested(newPosition, ActionType.Move);
         }
     }
 }

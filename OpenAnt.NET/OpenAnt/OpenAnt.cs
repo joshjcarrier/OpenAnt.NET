@@ -4,7 +4,7 @@ namespace OpenAnt
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Screen;
-    using Canvas;
+    using Engine;
 
     /// <summary>
     /// This is the main type for your game
@@ -17,15 +17,15 @@ namespace OpenAnt
         private SpriteBatch spriteBatch;
 
         /// <summary>
+        /// Host that manages multiple screens.
+        /// </summary>
+        private ScreenControlHost screenControlHost;
+
+        /// <summary>
         /// The main menu screen.
         /// </summary>
         private MainMenuScreen mainMenuScreen;
-
-        /// <summary>
-        /// The game canvas screen.
-        /// </summary>
-        private GameCanvasScreen gameCanvasScreen;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenAnt"/> class.
         /// </summary>
@@ -65,22 +65,26 @@ namespace OpenAnt
 
             // loads and provides content
             var contentProvider = new ContentProvider(this.Content, nullTexture);
+            
+            var worldManager = new WorldManager();
+
+            this.screenControlHost = new ScreenControlHost(worldManager, contentProvider, new Rectangle(0, 0, 800, 600));
 
             // graphical interface
-            this.gameCanvasScreen = new GameCanvasScreen(contentProvider);
+            // this.gameCanvasScreen = new GameCanvasScreen(contentProvider);
 
-            ViewportHelper.CurrentDevice = GraphicsDevice;
-            ViewportHelper.DefaultViewport = GraphicsDevice.Viewport;
-            Viewport viewport = GraphicsDevice.Viewport;
-            viewport.Width -= 100;
-            viewport.X = 100;
-            ViewportHelper.SpriteViewport = viewport;
+            // ViewportHelper.CurrentDevice = GraphicsDevice;
+            // ViewportHelper.DefaultViewport = GraphicsDevice.Viewport;
+            // Viewport viewport = GraphicsDevice.Viewport;
+            // viewport.Width -= 100;
+            // viewport.X = 100;
+            // ViewportHelper.SpriteViewport = viewport;
 
-            viewport = GraphicsDevice.Viewport;
-            viewport.Width = 100;
-            ViewportHelper.MenuViewport = viewport;
+            // viewport = GraphicsDevice.Viewport;
+            // viewport.Width = 100;
+            // ViewportHelper.MenuViewport = viewport;
 
-            GraphicsDevice.Viewport = ViewportHelper.SpriteViewport;
+            // GraphicsDevice.Viewport = ViewportHelper.SpriteViewport;
         }
 
         /// <summary>
@@ -105,9 +109,7 @@ namespace OpenAnt
                 this.Exit();
             }
 
-            // TODO: Add your update logic here
-            this.mainMenuScreen.Update();
-            this.gameCanvasScreen.Update(Keyboard.GetState(PlayerIndex.One));
+            this.screenControlHost.Update(Keyboard.GetState(PlayerIndex.One));
 
             base.Update(gameTime);
         }
@@ -118,12 +120,10 @@ namespace OpenAnt
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: smartly switch between screens
-            // this.mainMenuScreen.Draw(this.spriteBatch);
-            this.gameCanvasScreen.Draw(this.spriteBatch);
-
+            this.screenControlHost.Draw(this.spriteBatch);
+            
             base.Draw(gameTime);
         }
     }

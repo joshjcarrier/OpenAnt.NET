@@ -12,6 +12,7 @@
     /// </summary>
     public static class UndergroundGenerator
     {
+#if false
         /// <summary>
         /// Generates a random underground world.
         /// </summary>
@@ -49,5 +50,6 @@
 
             return new WorldData(surfaceData, spriteData, cpuSpriteData, player, boundary);
         }
+#endif
     }
 }

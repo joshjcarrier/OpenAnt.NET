@@ -2,7 +2,6 @@
 {
     using System;
     using Microsoft.Xna.Framework;
-    using World;
 
     /// <summary>
     /// Artificial intelligence for a worker ant.
@@ -49,7 +48,7 @@
             location.X += (testX % 3) - 1;
             location.Y += (testY % 3) - 1;
 
-            this.OnNotifyWorldChangeRequested(location, ActionType.Move);
+            //// this.OnNotifyWorldChangeRequested(location, ActionType.Move);
 
             return location;
         }
